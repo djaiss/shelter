@@ -1,8 +1,9 @@
-name: Match Conventional Commits spec
+name: Lint PR
 
 on:
   pull_request:
     types: [opened, edited, synchronize]
+
 
 jobs:
   main:
