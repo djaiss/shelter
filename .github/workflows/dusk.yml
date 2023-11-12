@@ -1,5 +1,13 @@
 name: E2E tests
-on: [push]
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
+  release:
+    types: [created]
+
 jobs:
 
   dusk-php:
