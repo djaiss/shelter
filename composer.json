@@ -1,11 +1,11 @@
 {
-    "name": "laravel/laravel",
+    "name": "djaiss/shelter",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Intranet for asynchronous teams.",
+    "keywords": ["laravel", "intranet", "asynchronous"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
@@ -18,9 +18,12 @@
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
+        "nunomaduro/larastan": "^2.0",
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
-        "spatie/laravel-ignition": "^2.0"
+        "psalm/plugin-laravel": "^2.7",
+        "spatie/laravel-ignition": "^2.0",
+        "tightenco/duster": "^2.5"
     },
     "autoload": {
         "psr-4": {
