@@ -21,6 +21,7 @@
         "nunomaduro/larastan": "^2.0",
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
+        "psalm/plugin-laravel": "^2.7",
         "spatie/laravel-ignition": "^2.0",
         "tightenco/duster": "^2.5"
     },
