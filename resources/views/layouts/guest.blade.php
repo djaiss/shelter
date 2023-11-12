@@ -28,8 +28,8 @@
 
     <div>
       <ul class="list">
-        <li class="inline mr-3"><x-link class="text-sm" href="{{ route('locale.update', ['locale' => 'en']) }}">{{ __('English') }}</x-link></li>
-        <li class="inline"><x-link class="text-sm" href="{{ route('locale.update', ['locale' => 'fr']) }}">{{ __('French') }}</x-link></li>
+        <li class="inline mr-3"><x-link class="text-sm" href="{{ route('locale.update', ['locale' => 'en']) }}" dusk="locale-switch-english">{{ __('English') }}</x-link></li>
+        <li class="inline"><x-link class="text-sm" href="{{ route('locale.update', ['locale' => 'fr']) }}" dusk="locale-switch-french">{{ __('French') }}</x-link></li>
       </ul>
     </div>
   </div>
