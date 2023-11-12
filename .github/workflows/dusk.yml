@@ -1,8 +1,9 @@
-name: CI
+name: E2E tests
 on: [push]
 jobs:
 
   dusk-php:
+    name: Dusk
     runs-on: ubuntu-latest
     env:
       APP_URL: "http://127.0.0.1:8000"
