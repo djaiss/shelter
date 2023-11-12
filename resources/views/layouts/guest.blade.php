@@ -22,8 +22,15 @@
       </a>
     </div>
 
-    <div class="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md dark:bg-gray-800 sm:max-w-md sm:rounded-lg">
+    <div class="mt-6 mb-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md dark:bg-gray-800 sm:max-w-md sm:rounded-lg">
       {{ $slot }}
+    </div>
+
+    <div>
+      <ul class="list">
+        <li class="inline mr-3"><x-link class="text-sm" href="{{ route('locale.update', ['locale' => 'en']) }}">{{ __('English') }}</x-link></li>
+        <li class="inline"><x-link class="text-sm" href="{{ route('locale.update', ['locale' => 'fr']) }}">{{ __('French') }}</x-link></li>
+      </ul>
     </div>
   </div>
 </body>

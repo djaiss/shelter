@@ -9,12 +9,14 @@ class ExampleTest extends DuskTestCase
 {
     /**
      * A basic browser test example.
+     *
+     * @test
      */
-    public function testBasicExample(): void
+    public function basicExample(): void
     {
         $this->browse(function (Browser $browser): void {
             $browser->visit('/')
-                    ->assertSee('Laravel');
+                ->assertSee('Laravel');
         });
     }
 }
