@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 
@@ -12,12 +11,14 @@ class CreateRole extends BaseService
 
     public function __construct(
         public string $label,
-    ) { }
+    ) {
+    }
 
     public function execute(): Role
     {
         $this->checkPermissions();
         $this->create();
+
         return $this->role;
     }
 
