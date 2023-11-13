@@ -43,6 +43,7 @@ class CreateAccount extends BaseService
             'name_for_avatar' => $this->firstName,
             'password' => Hash::make($this->password),
             'organization_id' => $this->organization->id,
+            'permissions' => User::ROLE_ADMINISTRATOR,
         ]);
     }
 
