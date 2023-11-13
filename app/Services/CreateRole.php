@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Role;
 use App\Models\User;
+use Exception;
 
 class CreateRole extends BaseService
 {
@@ -24,9 +25,9 @@ class CreateRole extends BaseService
 
     public function checkPermissions(): void
     {
-        if (auth()->user()->permissions !== User::ROLE_ACCOUNT_MANAGER ||
+        if (auth()->user()->permissions !== User::ROLE_ACCOUNT_MANAGER &&
             auth()->user()->permissions !== User::ROLE_ADMINISTRATOR) {
-            throw new \Exception(__('You do not have permission to do this action.'));
+            throw new Exception(__('You do not have permission to do this action.'));
         }
     }
 
