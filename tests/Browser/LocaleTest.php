@@ -13,9 +13,9 @@ class LocaleTest extends DuskTestCase
         $this->browse(function (Browser $browser): void {
             $browser->visit('/login')
                 ->click('@locale-switch-french')
-                ->assertSee('SE CONNECTER')
+                ->assertSee('Se connecter')
                 ->click('@locale-switch-english')
-                ->assertSee('LOG IN');
+                ->assertSee('Log in');
         });
     }
 }
