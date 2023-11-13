@@ -1,5 +1,6 @@
 <x-guest-layout>
-  <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+
+  <div class="border-b px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
     {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
   </div>
 
@@ -12,10 +13,11 @@
     @csrf
 
     <!-- Email Address -->
-    <div>
-      <x-input-label for="email"
+    <div class="border-b px-6 py-4">
+      <x-input-label class="mb-1"
+                     for="email"
                      :value="__('Email')" />
-      <x-text-input class="mt-1 block w-full"
+      <x-text-input class="block w-full"
                     id="email"
                     name="email"
                     type="email"
@@ -26,9 +28,9 @@
                      :messages="$errors->get('email')" />
     </div>
 
-    <div class="mt-4 flex items-center justify-end">
+    <div class="flex items-center px-6 py-4">
       <x-primary-button>
-        {{ __('Email Password Reset Link') }}
+        {{ __('Email password reset link') }}
       </x-primary-button>
     </div>
   </form>
