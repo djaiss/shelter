@@ -10,19 +10,15 @@
   </div>
 
   <!-- Session Status -->
-  <x-auth-session-status class="mb-4"
-                         :status="session('status')" />
+  <x-auth-session-status class="mb-4" :status="session('status')" />
 
-  <form method="POST"
-        action="{{ route('login') }}">
+  <form method="POST" action="{{ route('login') }}">
     @csrf
 
     <div class="px-6 py-4">
       <!-- Email Address -->
       <div class="mb-4">
-        <x-input-label class="mb-1"
-                       for="email"
-                       :value="__('Email')" />
+        <x-input-label class="mb-1" for="email" :value="__('Email')" />
         <x-text-input class="block w-full"
                       id="email"
                       name="email"
@@ -31,15 +27,12 @@
                       required
                       autofocus
                       autocomplete="username" />
-        <x-input-error class="mt-2"
-                       :messages="$errors->get('email')" />
+        <x-input-error class="mt-2" :messages="$errors->get('email')" />
       </div>
 
       <!-- Password -->
       <div class="mb-4">
-        <x-input-label class="mb-1"
-                       for="password"
-                       :value="__('Password')" />
+        <x-input-label class="mb-1" for="password" :value="__('Password')" />
 
         <x-text-input class="block w-full"
                       id="password"
@@ -48,14 +41,12 @@
                       required
                       autocomplete="current-password" />
 
-        <x-input-error class="mt-2"
-                       :messages="$errors->get('password')" />
+        <x-input-error class="mt-2" :messages="$errors->get('password')" />
       </div>
 
       <!-- Remember Me -->
       <div class="block">
-        <label class="inline-flex items-center"
-               for="remember_me">
+        <label class="inline-flex items-center" for="remember_me">
           <input class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
                  id="remember_me"
                  name="remember"
