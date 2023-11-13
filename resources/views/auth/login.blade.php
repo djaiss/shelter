@@ -70,8 +70,7 @@
         {{ __('Log in') }}
       </x-primary-button>
 
-      <x-link class=""
-              href="{{ route('password.request') }}">
+      <x-link href="{{ route('password.request') }}">
         {{ __('Forgot your password?') }}
       </x-link>
     </div>
