@@ -29,7 +29,7 @@ class CreateAccount extends BaseService
         $this->createOrganization();
         $this->createUser();
 
-        //PopulateAccount::dispatch($this->organization);
+        PopulateAccount::dispatch($this->organization);
 
         return $this->user;
     }

@@ -51,6 +51,6 @@ class CreateAccountTest extends TestCase
             'name' => 'johnny inc',
         ]);
 
-        //Queue::assertPushed(PopulateAccount::class);
+        Queue::assertPushed(PopulateAccount::class);
     }
 }

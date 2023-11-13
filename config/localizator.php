@@ -48,7 +48,7 @@ return [
          * Add here any custom defined functions.
          * NOTE: The translation string should always be the first argument.
          */
-        'functions' => ['__', 'trans', '@lang'],
+        'functions' => ['__', 'trans', '@lang', 'trans_key'],
     ],
 
     /**
