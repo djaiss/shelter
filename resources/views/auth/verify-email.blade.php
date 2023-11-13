@@ -11,7 +11,7 @@
     </div>
   @endif
 
-  <div class="flex flex-col sm:flex-row items-center justify-between px-6 py-4">
+  <div class="flex flex-col items-center justify-between px-6 py-4 sm:flex-row">
     <form method="POST"
           action="{{ route('verification.send') }}">
       @csrf
