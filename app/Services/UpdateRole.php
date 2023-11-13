@@ -2,45 +2,48 @@
 
 namespace App\Services;
 
-use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
+use Exception;
 
 class UpdateRole extends BaseService
 {
-    public function rules(): array
-    {
-        return [
-            'user_id' => 'required|integer|exists:users,id',
-            'organization_id' => 'required|integer|exists:organizations,id',
-            'role_id' => 'required|integer|exists:roles,id',
-            'label' => 'required|string|max:255',
-            'permissions' => 'nullable|array',
-        ];
+    public function __construct(
+        public Role $role,
+        public string $label,
+    ) {
     }
 
-    public function permissions(): array
+    public function execute(): Role
     {
-        return [
-            'user_must_belong_to_organization',
-            'user_must_have_the_right_to_edit_organization_roles',
-        ];
+        $this->checkPermissions();
+        $this->checkRole();
+        $this->update();
+
+        return $this->role;
     }
 
-    public function execute(array $data): Role
+    private function checkPermissions(): void
     {
-        $this->validateRules($data);
-
-        $role = Role::where('organization_id', $this->organization->id)
-            ->findOrFail($data['role_id']);
-
-        $role->label = $data['label'];
-        $role->save();
-
-        foreach ($data['permissions'] as $permission) {
-            $permissionObject = Permission::findOrFail($permission['id']);
-            $role->permissions()->syncWithoutDetaching([$permissionObject->id => ['active' => $permission['active']]]);
+        if (
+            auth()->user()->permissions !== User::ROLE_ACCOUNT_MANAGER &&
+            auth()->user()->permissions !== User::ROLE_ADMINISTRATOR
+        ) {
+            throw new Exception(__('You do not have permission to do this action.'));
         }
+    }
 
-        return $role;
+    private function checkRole(): void
+    {
+        if ($this->role->organization_id !== auth()->user()->organization_id) {
+            throw new Exception(__('You do not have permission to do this action.'));
+        }
+    }
+
+    private function update(): void
+    {
+        $this->role->update([
+            'label' => $this->label,
+        ]);
     }
 }

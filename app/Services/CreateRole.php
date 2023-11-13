@@ -23,7 +23,7 @@ class CreateRole extends BaseService
         return $this->role;
     }
 
-    public function checkPermissions(): void
+    private function checkPermissions(): void
     {
         if (auth()->user()->permissions !== User::ROLE_ACCOUNT_MANAGER &&
             auth()->user()->permissions !== User::ROLE_ADMINISTRATOR) {
@@ -31,7 +31,7 @@ class CreateRole extends BaseService
         }
     }
 
-    public function create(): void
+    private function create(): void
     {
         $this->role = Role::create([
             'organization_id' => auth()->user()->organization_id,

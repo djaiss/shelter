@@ -3,33 +3,42 @@
 namespace App\Services;
 
 use App\Models\Role;
+use App\Models\User;
+use Exception;
 
 class DestroyRole extends BaseService
 {
-    public function rules(): array
-    {
-        return [
-            'user_id' => 'required|integer|exists:users,id',
-            'organization_id' => 'required|integer|exists:organizations,id',
-            'role_id' => 'required|integer|exists:roles,id',
-        ];
+    public function __construct(
+        public Role $role,
+    ) {
     }
 
-    public function permissions(): array
+    public function execute(): void
     {
-        return [
-            'user_must_belong_to_organization',
-            'user_must_have_the_right_to_edit_organization_roles',
-        ];
+        $this->checkPermissions();
+        $this->checkRole();
+        $this->destroy();
     }
 
-    public function execute(array $data): void
+    public function destroy(): void
     {
-        $this->validateRules($data);
+        $this->role->delete();
+    }
 
-        $role = Role::where('organization_id', $this->organization->id)
-            ->findOrFail($data['role_id']);
+    private function checkPermissions(): void
+    {
+        if (
+            auth()->user()->permissions !== User::ROLE_ACCOUNT_MANAGER &&
+            auth()->user()->permissions !== User::ROLE_ADMINISTRATOR
+        ) {
+            throw new Exception(__('You do not have permission to do this action.'));
+        }
+    }
 
-        $role->delete();
+    private function checkRole(): void
+    {
+        if ($this->role->organization_id !== auth()->user()->organization_id) {
+            throw new Exception(__('You do not have permission to do this action.'));
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Role;
+use App\Models\Organization;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +18,7 @@ class LevelFactory extends Factory
     public function definition(): array
     {
         return [
-            'role_id' => Role::factory(),
+            'organization_id' => Organization::factory(),
             'label' => fake()->name,
             'label_translation_key' => fake()->name,
         ];

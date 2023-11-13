@@ -22,11 +22,11 @@ return new class extends Migration
 
         Schema::create('levels', function (Blueprint $table): void {
             $table->id();
-            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('organization_id');
             $table->string('label')->nullable();
             $table->string('label_translation_key')->nullable();
             $table->timestamps();
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
         });
     }
 };

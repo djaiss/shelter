@@ -6,8 +6,10 @@ use App\Traits\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * A role is someone's job, like "developer" or "financial analyst".
+ */
 class Role extends Model
 {
     use HasFactory, Translatable;
@@ -28,10 +30,5 @@ class Role extends Model
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
-    }
-
-    public function levels(): HasMany
-    {
-        return $this->hasMany(Level::class);
     }
 }

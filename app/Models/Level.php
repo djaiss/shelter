@@ -19,13 +19,13 @@ class Level extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'role_id',
+        'organization_id',
         'label',
         'label_translation_key',
     ];
 
-    public function role(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Organization::class);
     }
 }

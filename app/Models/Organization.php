@@ -21,4 +21,9 @@ class Organization extends Model
     {
         return $this->hasMany(Role::class);
     }
+
+    public function levels(): HasMany
+    {
+        return $this->hasMany(Level::class);
+    }
 }
