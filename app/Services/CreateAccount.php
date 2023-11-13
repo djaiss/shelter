@@ -21,8 +21,7 @@ class CreateAccount extends BaseService
         public string $firstName,
         public string $lastName,
         public string $organizationName
-    ) {
-    }
+    ) { }
 
     public function execute(): User
     {
