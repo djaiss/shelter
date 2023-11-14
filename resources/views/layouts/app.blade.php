@@ -12,17 +12,17 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased text-slate-900">
   <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
     @include('layouts.navigation')
 
-    <!-- Page Heading -->
-    @if (isset($header))
-      <header class="bg-white shadow dark:bg-gray-800">
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          {{ $header }}
-        </div>
-      </header>
+    <!-- Breadcrumb -->
+    @if (isset($breadcrumb))
+    <header class="bg-white shadow dark:bg-gray-800">
+      <div class="mx-auto max-w-8xl px-4 py-2 sm:px-6 lg:px-8">
+        {{ $breadcrumb }}
+      </div>
+    </header>
     @endif
 
     <!-- Page Content -->
