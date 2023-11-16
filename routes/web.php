@@ -23,7 +23,17 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
     // settings
     Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
-    Route::get('settings/roles', [SettingsRoleController::class, 'index'])->name('settings.role.index');
+
+    Route::middleware(['administrator'])->group(function (): void {
+
+        // roles
+        Route::get('settings/roles', [SettingsRoleController::class, 'index'])->name('settings.role.index');
+        Route::get('settings/roles/new', [SettingsRoleController::class, 'new'])->name('settings.role.new');
+        Route::post('settings/roles', [SettingsRoleController::class, 'store'])->name('settings.role.store');
+        Route::get('settings/roles/{role}', [SettingsRoleController::class, 'edit'])->name('settings.role.edit');
+        Route::put('settings/roles/{role}', [SettingsRoleController::class, 'edit'])->name('settings.role.edit');
+        Route::delete('settings/roles/{role}', [SettingsRoleController::class, 'destroy'])->name('settings.role.destroy');
+    });
 });
 
 require __DIR__ . '/auth.php';
