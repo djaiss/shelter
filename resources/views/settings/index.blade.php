@@ -6,7 +6,7 @@
           <h1>{{ __('As an administrator, you can...') }}</h1>
           <ul>
             <li>
-              <x-link href="{{ route('settings.role.index') }}">{{ __('Manage roles and levels') }}</x-link>
+              <x-link :hover="true" href="{{ route('settings.role.index') }}">{{ __('Manage roles and levels') }}</x-link>
             </li>
           </ul>
         </div>

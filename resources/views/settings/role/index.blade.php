@@ -15,10 +15,10 @@
       <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 rounded sm:rounded-lg p-6">
 
         <!-- roles -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 border-b pb-2">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 border-b dark:border-gray-600 pb-2">
           <h1 class="font-semibold mb-2 sm:mb-0">{{ __('All the roles in your organization') }}</h1>
 
-          <x-primary-link href="{{ route('settings.role.new') }}" class="text-sm">
+          <x-primary-link hover="true" href="{{ route('settings.role.new') }}" class="text-sm">
             {{ __('Add a role') }}
           </x-primary-link>
         </div>
@@ -28,8 +28,8 @@
         </x-help>
 
         @forelse ($data['roles'] as $role)
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between hover:bg-blue-50 hover:border-l-blue-300 hover:border-l-2 border border-l-2 border-transparent border-b-gray-200 sm:border-b-0 px-2 py-2">
-          <div>{{ $role['label'] }}</div>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between hover:bg-blue-50 dark:hover:bg-gray-600 hover:border-l-blue-300 hover:border-l-2 border border-l-2 border-transparent border-b-gray-200 sm:border-b-0 sm:px-2 py-2">
+          <div class="mb-2 sm:mb-0">{{ $role['label'] }}</div>
 
           <!-- actions -->
           <div class="text-sm">
@@ -63,7 +63,7 @@
 
         <div>
           @foreach ($data['levels'] as $level)
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between hover:bg-blue-50 hover:border-l-blue-300 hover:border-l-2 border border-l-2 border-transparent border-b-gray-200 sm:border-b-0 px-2 py-2">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between hover:bg-blue-50 dark:hover:bg-gray-600 hover:border-l-blue-300 hover:border-l-2 border border-l-2 border-transparent border-b-gray-200 sm:border-b-0 px-2 py-2">
             <div>{{ $level['label'] }}</div>
 
             <!-- actions -->

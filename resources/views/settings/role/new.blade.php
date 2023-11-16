@@ -18,7 +18,7 @@
         <form method="POST" action="{{ route('settings.role.store') }}">
           @csrf
 
-          <div class="relative border-b px-6 py-4">
+          <div class="relative border-b dark:border-gray-600 px-6 py-4">
             <h1 class="text-center text-lg font-bold">{{ __('Add a new role') }}</h1>
           </div>
 
@@ -37,8 +37,8 @@
           </div>
 
           <!-- actions -->
-          <div class="flex items-center justify-between border-t bg-gray-50 px-6 py-4">
-            <x-link href="{{ route('settings.role.index') }}">{{ __('Back') }}</x-link>
+          <div class="flex items-center justify-between border-t dark:border-gray-600 bg-gray-50 dark:bg-gray-800 px-6 py-4">
+            <x-link :hover="true" href="{{ route('settings.role.index') }}">{{ __('Back') }}</x-link>
 
             <div>
               <x-primary-button class="w-full text-center">
