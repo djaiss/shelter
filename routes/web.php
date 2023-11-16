@@ -25,7 +25,6 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
 
     Route::middleware(['administrator'])->group(function (): void {
-
         // roles
         Route::get('settings/roles', [SettingsRoleController::class, 'index'])->name('settings.role.index');
         Route::get('settings/roles/new', [SettingsRoleController::class, 'new'])->name('settings.role.new');
