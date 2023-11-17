@@ -6,14 +6,17 @@
           <h1>{{ __('As a user, you can...') }}</h1>
           <ul class="mb-6">
             <li>
-              <x-link :hover="true" href="{{ route('settings.profile.index') }}">{{ __('Manage your profile') }}</x-link>
+              <x-link href="{{ route('settings.profile.index') }}">{{ __('Manage your profile') }}</x-link>
             </li>
           </ul>
 
           <h1>{{ __('As an administrator, you can...') }}</h1>
           <ul>
+            <li class="mb-2">
+              <x-link href="{{ route('settings.role.index') }}" dusk="manage-role-link">{{ __('Manage roles') }}</x-link>
+            </li>
             <li>
-              <x-link :hover="true" href="{{ route('settings.role.index') }}">{{ __('Manage roles and levels') }}</x-link>
+              <x-link href="{{ route('settings.level.index') }}" dusk="manage-level-link">{{ __('Manage levels') }}</x-link>
             </li>
           </ul>
         </div>

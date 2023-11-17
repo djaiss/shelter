@@ -26,7 +26,7 @@
           <x-nav-link :href="route('dashboard')">
             {{ __('Company') }}
           </x-nav-link>
-          <x-nav-link :href="route('settings.index')" :active="request()->is('settings*')">
+          <x-nav-link dusk="nav-settings-link" :href="route('settings.index')" :active="request()->is('settings*')">
             {{ __('Settings') }}
           </x-nav-link>
         </div>

@@ -63,7 +63,7 @@
 
           <!-- actions -->
           <div class="flex items-center justify-between border-t dark:border-gray-600 bg-gray-50 dark:bg-gray-800 px-6 py-4">
-            <x-link :hover="true" href="{{ route('settings.role.index') }}">{{ __('Back') }}</x-link>
+            <x-link href="{{ route('settings.role.index') }}">{{ __('Back') }}</x-link>
 
             <div>
               <x-primary-button class="w-full text-center">

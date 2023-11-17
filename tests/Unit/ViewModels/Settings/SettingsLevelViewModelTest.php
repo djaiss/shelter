@@ -2,13 +2,13 @@
 
 namespace Tests\Unit\ViewModels\Settings;
 
-use App\Http\ViewModels\Settings\SettingsRoleViewModel;
-use App\Models\Role;
+use App\Http\ViewModels\Settings\SettingsLevelViewModel;
+use App\Models\Level;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class SettingsRoleViewModelTest extends TestCase
+class SettingsLevelViewModelTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -18,24 +18,24 @@ class SettingsRoleViewModelTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $array = SettingsRoleViewModel::index();
+        $array = SettingsLevelViewModel::index();
 
         $this->assertCount(1, $array);
-        $this->assertArrayHasKey('roles', $array);
+        $this->assertArrayHasKey('levels', $array);
     }
 
     /** @test */
-    public function it_gets_the_role_object(): void
+    public function it_gets_the_level_object(): void
     {
-        $role = Role::factory()->create([
+        $level = Level::factory()->create([
             'label' => 'Dunder',
         ]);
-        $array = SettingsRoleViewModel::role($role);
+        $array = SettingsLevelViewModel::level($level);
 
         $this->assertCount(2, $array);
         $this->assertEquals(
             [
-                'id' => $role->id,
+                'id' => $level->id,
                 'label' => 'Dunder',
             ],
             $array
