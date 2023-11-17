@@ -3,6 +3,7 @@
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Settings\SettingsController;
+use App\Http\Controllers\Settings\SettingsProfileController;
 use App\Http\Controllers\Settings\SettingsRoleController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
 
     Route::middleware(['administrator'])->group(function (): void {
+        // profile
+        Route::get('settings/profile', [SettingsProfileController::class, 'index'])->name('settings.profile.index');
+
         // roles
         Route::get('settings/roles', [SettingsRoleController::class, 'index'])->name('settings.role.index');
         Route::get('settings/roles/new', [SettingsRoleController::class, 'new'])->name('settings.role.new');

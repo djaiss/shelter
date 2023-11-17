@@ -14,7 +14,8 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.1",
-        "stichoza/google-translate-php": "^5.1"
+        "stichoza/google-translate-php": "^5.1",
+        "wireui/wireui": "^1.18"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",
