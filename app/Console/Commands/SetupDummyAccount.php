@@ -2,20 +2,13 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Message;
-use App\Models\Project;
 use App\Models\User;
-use App\Services\AddCommentToMessage;
-use App\Services\AddProjectMember;
 use App\Services\CreateAccount;
-use App\Services\CreateMessage;
-use App\Services\CreateProject;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class SetupDummyAccount extends Command
 {
