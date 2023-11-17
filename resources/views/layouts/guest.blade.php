@@ -22,10 +22,10 @@
     <div class="mb-4">
       <ul class="list">
         <li class="mr-3 inline">
-          <x-link boost="false" href="{{ route('locale.update', ['locale' => 'en']) }}" class="text-sm" dusk="locale-switch-english">{{ __('English') }}</x-link>
+          <x-link :boost="false" href="{{ route('locale.update', ['locale' => 'en']) }}" class="text-sm" dusk="locale-switch-english">{{ __('English') }}</x-link>
         </li>
         <li class="inline">
-          <x-link boost="false" href="{{ route('locale.update', ['locale' => 'fr']) }}" class="text-sm" dusk="locale-switch-french">{{ __('French') }}</x-link>
+          <x-link :boost="false" href="{{ route('locale.update', ['locale' => 'fr']) }}" class="text-sm" dusk="locale-switch-french">{{ __('French') }}</x-link>
         </li>
       </ul>
     </div>

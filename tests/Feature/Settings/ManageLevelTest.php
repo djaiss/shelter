@@ -2,52 +2,52 @@
 
 namespace Tests\Feature\Settings;
 
-use App\Models\Role;
+use App\Models\Level;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ManageRoleTest extends TestCase
+class ManageLevelTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    public function the_page_lists_a_list_of_roles(): void
+    public function the_page_lists_a_list_of_levels(): void
     {
-        $role = Role::factory()->create([
-            'label' => 'Developer',
+        $level = Level::factory()->create([
+            'label' => 'Intermediate',
         ]);
         $administrator = User::factory()->create([
             'permissions' => User::ROLE_ADMINISTRATOR,
-            'organization_id' => $role->organization_id,
+            'organization_id' => $level->organization_id,
         ]);
         $user = User::factory()->create([
             'permissions' => User::ROLE_USER,
-            'organization_id' => $role->organization_id,
+            'organization_id' => $level->organization_id,
         ]);
 
         $this->actingAs($user)
-            ->get('/settings/roles')
+            ->get('/settings/levels')
             ->assertStatus(401);
 
         $this->actingAs($administrator)
-            ->get('/settings/roles')
+            ->get('/settings/levels')
             ->assertStatus(200);
 
         $this->actingAs($administrator)
-            ->get('/settings/roles')
-            ->assertSee('Developer');
+            ->get('/settings/levels')
+            ->assertSee('Intermediate');
     }
 
     /** @test */
-    public function an_administrator_can_create_a_new_role(): void
+    public function an_administrator_can_create_a_new_level(): void
     {
         $user = User::factory()->create([
             'permissions' => User::ROLE_USER,
         ]);
 
         $this->actingAs($user)
-            ->post('/settings/roles', [
+            ->post('/settings/levels', [
                 'label' => fake()->name,
             ])
             ->assertStatus(401);
@@ -57,47 +57,47 @@ class ManageRoleTest extends TestCase
         ]);
 
         $this->actingAs($administrator)
-            ->post('/settings/roles', [
-                'label' => 'Software engineer',
+            ->post('/settings/levels', [
+                'label' => 'Advanced',
             ])
-            ->assertRedirectToRoute('settings.role.index');
+            ->assertRedirectToRoute('settings.level.index');
 
         $this->actingAs($administrator)
-            ->get('/settings/roles')
-            ->assertSee('Software engineer');
+            ->get('/settings/levels')
+            ->assertSee('Advanced');
     }
 
     /** @test */
-    public function a_role_can_be_edited(): void
+    public function a_level_can_be_edited(): void
     {
         $administrator = User::factory()->create([
             'permissions' => User::ROLE_ADMINISTRATOR,
         ]);
-        $role = Role::factory()->create([
+        $level = Level::factory()->create([
             'organization_id' => $administrator->organization_id,
         ]);
 
         $this->actingAs($administrator)
-            ->put('/settings/roles/' . $role->id, [
-                'label' => 'Software engineer',
+            ->put('/settings/levels/' . $level->id, [
+                'label' => 'Intermediate',
             ])
             ->assertStatus(302)
-            ->assertRedirectToRoute('settings.role.index');
+            ->assertRedirectToRoute('settings.level.index');
     }
 
     // /** @test */
-    public function a_role_cant_be_edited_with_the_wrong_permission(): void
+    public function a_level_cant_be_edited_with_the_wrong_permission(): void
     {
         $user = User::factory()->create([
             'permissions' => User::ROLE_USER,
         ]);
-        $role = Role::factory()->create([
+        $level = Level::factory()->create([
             'organization_id' => $user->organization_id,
         ]);
 
         $this->actingAs($user)
-            ->put('/settings/roles/' . $role->id, [
-                'label' => 'Software engineer',
+            ->put('/settings/levels/' . $level->id, [
+                'label' => 'Intermediate',
             ])
             ->assertStatus(401);
     }
