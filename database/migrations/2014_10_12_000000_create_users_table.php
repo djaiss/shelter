@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('permissions');
             $table->string('name_for_avatar');
+            $table->string('locale')->default('en');
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
