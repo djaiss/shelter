@@ -18,7 +18,6 @@ class SettingsRolesAndLevelsTest extends DuskTestCase
         ]);
 
         $this->browse(function (Browser $browser) use ($administrator): void {
-
             // create a new role
             $browser->loginAs($administrator)
                 ->visit('/dashboard')
@@ -39,8 +38,8 @@ class SettingsRolesAndLevelsTest extends DuskTestCase
                 ->first();
 
             $browser->visit('/settings/roles')
-                ->waitFor('@edit-role-'.$role->id)
-                ->click('@edit-role-'.$role->id)
+                ->waitFor('@edit-role-' . $role->id)
+                ->click('@edit-role-' . $role->id)
                 ->type('label', 'Awesome developer')
                 ->waitFor('@submit-form-button')
                 ->click('@submit-form-button')
@@ -49,8 +48,8 @@ class SettingsRolesAndLevelsTest extends DuskTestCase
 
             // delete a role
             $browser->visit('/settings/roles')
-                ->waitFor('@delete-role-'.$role->id)
-                ->click('@delete-role-'.$role->id)
+                ->waitFor('@delete-role-' . $role->id)
+                ->click('@delete-role-' . $role->id)
                 ->acceptDialog()
                 ->pause(150)
                 ->assertDontSee('Awesome developer');
@@ -65,43 +64,42 @@ class SettingsRolesAndLevelsTest extends DuskTestCase
         ]);
 
         $this->browse(function (Browser $browser) use ($administrator): void {
+            // create a level
+            $browser->loginAs($administrator)
+                ->visit('/dashboard')
+                ->click('@nav-settings-link')
+                ->waitFor('@manage-level-link')
+                ->click('@manage-level-link')
+                ->waitFor('@add-level-cta')
+                ->click('@add-level-cta')
+                ->type('label', 'Intermediate')
+                ->waitFor('@submit-form-button')
+                ->click('@submit-form-button')
+                ->assertPathIs('/settings/levels')
+                ->pause(150)
+                ->assertSee('Intermediate');
 
-        // create a level
-        $browser->loginAs($administrator)
-            ->visit('/dashboard')
-            ->click('@nav-settings-link')
-            ->waitFor('@manage-level-link')
-            ->click('@manage-level-link')
-            ->waitFor('@add-level-cta')
-            ->click('@add-level-cta')
-            ->type('label', 'Intermediate')
-            ->waitFor('@submit-form-button')
-            ->click('@submit-form-button')
-            ->assertPathIs('/settings/levels')
-            ->pause(150)
-            ->assertSee('Intermediate');
+            // edit a level
+            $level = Level::orderBy('updated_at', 'desc')
+                ->where('organization_id', $administrator->organization_id)
+                ->first();
 
-        // edit a level
-        $level = Level::orderBy('updated_at', 'desc')
-            ->where('organization_id', $administrator->organization_id)
-            ->first();
+            $browser->visit('/settings/levels')
+                ->waitFor('@edit-level-' . $level->id)
+                ->click('@edit-level-' . $level->id)
+                ->type('label', 'Intermediate Senior')
+                ->waitFor('@submit-form-button')
+                ->click('@submit-form-button')
+                ->assertPathIs('/settings/levels')
+                ->assertSee('Intermediate Senior');
 
-        $browser->visit('/settings/levels')
-            ->waitFor('@edit-level-'.$level->id)
-            ->click('@edit-level-'.$level->id)
-            ->type('label', 'Intermediate Senior')
-            ->waitFor('@submit-form-button')
-            ->click('@submit-form-button')
-            ->assertPathIs('/settings/levels')
-            ->assertSee('Intermediate Senior');
-
-        // delete a level
-        $browser->visit('/settings/levels')
-            ->waitFor('@delete-level-'.$level->id)
-            ->click('@delete-level-'.$level->id)
-            ->acceptDialog()
-            ->pause(150)
-            ->assertDontSee('Intermediate Senior');
+            // delete a level
+            $browser->visit('/settings/levels')
+                ->waitFor('@delete-level-' . $level->id)
+                ->click('@delete-level-' . $level->id)
+                ->acceptDialog()
+                ->pause(150)
+                ->assertDontSee('Intermediate Senior');
         });
     }
 }
