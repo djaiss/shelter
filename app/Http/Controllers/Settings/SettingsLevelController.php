@@ -91,6 +91,6 @@ class SettingsLevelController extends Controller
             level: $level,
         ))->execute();
 
-        return response()->make(null, 200, ['HX-Trigger' => 'loadLevels']);
+        return response()->make('', 200, ['HX-Trigger' => 'loadLevels']);
     }
 }

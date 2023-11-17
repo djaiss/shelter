@@ -91,6 +91,6 @@ class SettingsRoleController extends Controller
             role: $role,
         ))->execute();
 
-        return response()->make(null, 200, ['HX-Trigger' => 'loadRoles']);
+        return response()->make('', 200, ['HX-Trigger' => 'loadRoles']);
     }
 }
