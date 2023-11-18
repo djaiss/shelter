@@ -31,7 +31,7 @@ class SettingsProfileController extends Controller
                     'lowercase',
                     'email',
                     'max:255',
-                    'unique:' . User::class
+                    'unique:' . User::class,
                 ],
             ]);
         } else {
