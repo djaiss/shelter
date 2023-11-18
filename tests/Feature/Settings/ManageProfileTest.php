@@ -21,13 +21,18 @@ class ManageProfileTest extends TestCase
 
         $this->actingAs($user)
             ->get('/settings/profile')
-            ->assertSee('henri')
-            ->post('/settings/profile', [
+            ->assertSee('henri');
+
+        $this->actingAs($user)
+            ->put('/settings/profile', [
                 'first_name' => 'celine',
                 'last_name' => 'troyat',
                 'email' => 'henri@troyat.com',
             ])
-            ->assertRedirectToRoute('settings.profile.index')
+            ->assertRedirectToRoute('settings.profile.index');
+
+        $this->actingAs($user)
+            ->get('/settings/profile')
             ->assertSee('celine');
     }
 }
