@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::middleware(['administrator'])->group(function (): void {
         // profile
         Route::get('settings/profile', [SettingsProfileController::class, 'index'])->name('settings.profile.index');
+        Route::put('settings/profile', [SettingsProfileController::class, 'update'])->name('settings.profile.update');
 
         // roles
         Route::get('settings/roles', [SettingsRoleController::class, 'index'])->name('settings.role.index');
