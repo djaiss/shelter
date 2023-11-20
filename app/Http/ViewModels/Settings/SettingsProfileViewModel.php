@@ -10,6 +10,7 @@ class SettingsProfileViewModel
             'first_name' => auth()->user()->first_name,
             'last_name' => auth()->user()->last_name,
             'email' => auth()->user()->email,
+            'locale' => auth()->user()->locale,
         ];
     }
 }

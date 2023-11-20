@@ -25,12 +25,14 @@ class UpdateProfileTest extends TestCase
             firstName: 'michael',
             lastName: 'scott',
             email: 'michael@dunder.com',
+            locale: 'en',
         ))->execute();
 
         $this->assertDatabaseHas('users', [
             'id' => auth()->user()->id,
             'first_name' => 'michael',
             'last_name' => 'scott',
+            'locale' => 'en',
         ]);
 
         Event::assertDispatched(Registered::class);

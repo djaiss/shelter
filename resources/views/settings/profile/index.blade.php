@@ -21,6 +21,7 @@
             <h1 class="text-center text-lg font-bold">{{ __('Update your profile') }}</h1>
           </div>
 
+          <!-- name -->
           <div class="mb-1 grid grid-flow-col grid-cols-2 gap-4 px-6 py-4">
             <div class="mr-0">
               <x-input-label for="first_name" :value="__('First name')" />
@@ -48,6 +49,7 @@
             </div>
           </div>
 
+          <!-- email -->
           <div class="relative px-6 pb-4">
             <x-input-label for="email"
                           :value="__('Email address')" />
@@ -67,15 +69,26 @@
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
           </div>
 
+          <!-- locale -->
+          <div class="relative px-6 pb-4">
+            <label for="locale" class="block text-sm font-medium leading-6 text-gray-900">{{ __('Language') }}</label>
+            <div class="mt-2">
+              <select id="locale" name="locale" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                <option value="en" @selected($data['locale'] == 'en')>{{ __('English') }}</option>
+                <option value="fr" @selected($data['locale'] == 'fr')>{{ __('French') }}</option>
+              </select>
+            </div>
+          </div>
+
           <!-- actions -->
           <div class="flex items-center justify-between border-t dark:border-gray-600 px-6 py-4">
-            <x-link href="{{ route('settings.index') }}">{{ __('Back') }}</x-link>
-
             <div>
               <x-primary-button class="w-full text-center">
                 {{ __('Save') }}
               </x-primary-button>
             </div>
+
+            <x-link href="{{ route('settings.index') }}">{{ __('Back') }}</x-link>
           </div>
         </form>
       </div>

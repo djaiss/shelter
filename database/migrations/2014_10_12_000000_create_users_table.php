@@ -16,12 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('organization_id');
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->string('permissions');
+            $table->string('locale')->default('en');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('permissions');
             $table->string('name_for_avatar');
-            $table->string('locale')->default('en');
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
