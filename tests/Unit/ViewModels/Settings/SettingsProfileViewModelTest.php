@@ -18,17 +18,19 @@ class SettingsProfileViewModelTest extends TestCase
             'first_name' => 'Henri',
             'last_name' => 'Troyat',
             'email' => 'henri@troyat.com',
+            'locale' => 'fr',
         ]);
         $this->actingAs($user);
 
         $array = SettingsProfileViewModel::index();
 
-        $this->assertCount(3, $array);
+        $this->assertCount(4, $array);
         $this->assertEquals(
             [
                 'first_name' => 'Henri',
                 'last_name' => 'Troyat',
                 'email' => 'henri@troyat.com',
+                'locale' => 'fr',
             ],
             $array
         );

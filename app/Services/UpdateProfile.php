@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
@@ -15,6 +14,7 @@ class UpdateProfile extends BaseService
         public string $firstName,
         public string $lastName,
         public string $email,
+        public string $locale,
     ) {
     }
 
@@ -27,6 +27,7 @@ class UpdateProfile extends BaseService
     {
         auth()->user()->first_name = $this->firstName;
         auth()->user()->last_name = $this->lastName;
+        auth()->user()->locale = $this->locale;
         auth()->user()->save();
 
         if (auth()->user()->email !== $this->email) {

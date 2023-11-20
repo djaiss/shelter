@@ -37,13 +37,13 @@
 
           <!-- actions -->
           <div class="flex items-center justify-between border-t dark:border-gray-600 px-6 py-4">
-            <x-link href="{{ route('settings.role.index') }}">{{ __('Back') }}</x-link>
-
             <div>
               <x-primary-button class="w-full text-center" dusk="submit-form-button">
                 {{ __('Add') }}
               </x-primary-button>
             </div>
+
+            <x-link href="{{ route('settings.role.index') }}">{{ __('Back') }}</x-link>
           </div>
         </form>
       </div>
