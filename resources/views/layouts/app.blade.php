@@ -15,12 +15,12 @@
 </head>
 
 <body class="font-sans antialiased text-slate-900 dark:text-gray-100">
-  <div class="min-h-screen bg-gray-100 dark:bg-gray-900 relative">
+  <div class="min-h-screen dark:bg-gray-900 relative">
     @include('layouts.navigation')
 
     <!-- Breadcrumb -->
     @if (isset($breadcrumb))
-    <header class="bg-white shadow dark:bg-gray-800">
+    <header class="border-b bg-white dark:bg-gray-800">
       <div class="mx-auto max-w-8xl px-4 py-2 sm:px-6 lg:px-8">
         {{ $breadcrumb }}
       </div>

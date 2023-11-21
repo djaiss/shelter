@@ -33,6 +33,7 @@ class TeamViewModel
         return [
             'id' => $team->id,
             'name' => $team->name,
+            'is_public' => $team->is_public,
         ];
     }
 }

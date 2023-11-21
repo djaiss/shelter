@@ -38,6 +38,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('teams', [TeamController::class, 'index'])->name('team.index');
     Route::get('teams/new', [TeamController::class, 'new'])->name('team.new');
     Route::post('teams', [TeamController::class, 'store'])->name('team.store');
+    Route::middleware(['team'])->group(function (): void {
+        Route::get('teams/{team}', [TeamController::class, 'show'])->name('team.show');
+    });
 
     // settings
     Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');

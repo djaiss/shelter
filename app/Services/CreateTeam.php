@@ -17,6 +17,7 @@ class CreateTeam extends BaseService
     public function execute(): Team
     {
         $this->create();
+        $this->addCurrentUser();
 
         return $this->team;
     }
@@ -28,5 +29,10 @@ class CreateTeam extends BaseService
             'name' => $this->name,
             'is_public' => $this->isPublic,
         ]);
+    }
+
+    private function addCurrentUser(): void
+    {
+        $this->team->users()->attach(auth()->user()->id);
     }
 }

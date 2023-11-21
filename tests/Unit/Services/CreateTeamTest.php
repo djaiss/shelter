@@ -32,5 +32,10 @@ class CreateTeamTest extends TestCase
             'organization_id' => $user->organization_id,
             'name' => 'Accounting',
         ]);
+
+        $this->assertDatabaseHas('team_user', [
+            'team_id' => $team->id,
+            'user_id' => $user->id,
+        ]);
     }
 }

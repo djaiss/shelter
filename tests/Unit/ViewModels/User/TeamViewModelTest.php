@@ -49,6 +49,7 @@ class TeamViewModelTest extends TestCase
     {
         $team = Team::factory()->create([
             'name' => 'Accounting',
+            'is_public' => false,
         ]);
 
         $array = TeamViewModel::show($team);
@@ -58,6 +59,7 @@ class TeamViewModelTest extends TestCase
             [
                 'id' => $team->id,
                 'name' => 'Accounting',
+                'is_public' => false,
             ],
             $array
         );

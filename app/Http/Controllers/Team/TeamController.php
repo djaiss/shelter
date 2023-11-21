@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Team;
 
 use App\Http\Controllers\Controller;
+use App\Http\ViewModels\Team\TeamViewModel;
 use App\Http\ViewModels\User\UserViewModel;
+use App\Services\CreateTeam;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -25,12 +27,13 @@ class TeamController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'is_public' => 'required|boolean',
+            'group-name' => 'required|string|max:255',
+            'visibility' => 'required|boolean',
         ]);
 
-        $team = (new CreateRole(
-            label: $validated['label'],
+        $team = (new CreateTeam(
+            name: $validated['group-name'],
+            isPublic: $validated['visibility'],
         ))->execute();
 
         $request->session()->flash('status', __('The team has been created'));
@@ -42,10 +45,10 @@ class TeamController extends Controller
 
     public function show(Request $request): View
     {
-        $user = $request->attributes->get('user');
+        $team = $request->attributes->get('team');
 
-        return view('user.show', [
-            'data' => UserViewModel::show($user),
+        return view('team.show', [
+            'data' => TeamViewModel::show($team),
         ]);
     }
 }
