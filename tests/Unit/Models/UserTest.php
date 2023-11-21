@@ -24,7 +24,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function it_has_many_teams()
+    public function it_has_many_teams(): void
     {
         $sales = Team::factory()->create([]);
         $dwight = User::factory()->create([
