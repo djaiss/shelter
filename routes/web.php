@@ -6,6 +6,7 @@ use App\Http\Controllers\Settings\SettingsController;
 use App\Http\Controllers\Settings\SettingsLevelController;
 use App\Http\Controllers\Settings\SettingsProfileController;
 use App\Http\Controllers\Settings\SettingsRoleController;
+use App\Http\Controllers\Team\TeamController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,11 +25,19 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // company
+    Route::get('company', [UserController::class, 'index'])->name('company.index');
+
     // users
     Route::get('users', [UserController::class, 'index'])->name('user.index');
     Route::middleware(['user'])->group(function (): void {
         Route::get('users/{user}', [UserController::class, 'show'])->name('user.show');
     });
+
+    // teams
+    Route::get('teams', [TeamController::class, 'index'])->name('team.index');
+    Route::get('teams/new', [TeamController::class, 'new'])->name('team.new');
+    Route::post('teams', [TeamController::class, 'store'])->name('team.store');
 
     // settings
     Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');

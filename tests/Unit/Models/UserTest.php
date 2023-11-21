@@ -3,6 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Organization;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -20,6 +21,19 @@ class UserTest extends TestCase
         ]);
 
         $this->assertTrue($user->organization()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_teams()
+    {
+        $sales = Team::factory()->create([]);
+        $dwight = User::factory()->create([
+            'organization_id' => $sales->organization_id,
+        ]);
+
+        $dwight->teams()->syncWithoutDetaching([$dwight->id]);
+
+        $this->assertTrue($dwight->teams()->exists());
     }
 
     /** @test */
