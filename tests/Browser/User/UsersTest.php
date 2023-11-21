@@ -2,8 +2,6 @@
 
 namespace Tests\Browser;
 
-use App\Models\Level;
-use App\Models\Role;
 use App\Models\User;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
