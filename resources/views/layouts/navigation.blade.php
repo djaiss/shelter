@@ -89,6 +89,22 @@
           {{ __('Profile') }}
         </x-responsive-nav-link>
 
+        <x-responsive-nav-link :href="route('profile.edit')">
+          {{ __('Messages') }}
+        </x-responsive-nav-link>
+
+        <x-responsive-nav-link :href="route('profile.edit')">
+          {{ __('Projects') }}
+        </x-responsive-nav-link>
+
+        <x-responsive-nav-link :href="route('profile.edit')">
+          {{ __('Company') }}
+        </x-responsive-nav-link>
+
+        <x-responsive-nav-link :href="route('settings.index')">
+          {{ __('Settings') }}
+        </x-responsive-nav-link>
+
         <!-- Authentication -->
         <form method="POST"
               action="{{ route('logout') }}">
