@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,6 +19,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public const ROLE_ADMINISTRATOR = 'administrator';
 
     public const ROLE_USER = 'user';
+
+    public const AVATAR_TYPE_SVG = 'svg';
+
+    public const AVATAR_TYPE_URL = 'url';
 
     /**
      * The attributes that are mass assignable.
@@ -59,5 +64,38 @@ class User extends Authenticatable implements MustVerifyEmail
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
+    }
+
+    /**
+     * Get the name of the user.
+     *
+     * @return Attribute<string,never>
+     */
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value, $attributes) {
+                return $attributes['first_name'] . ' ' . $attributes['last_name'];
+            }
+        );
+    }
+
+    /**
+     * @return Attribute<string,never>
+     */
+    protected function avatar(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                $type = self::AVATAR_TYPE_SVG;
+                $multiavatar = new MultiAvatar;
+                $avatar = $multiavatar($this->name_for_avatar, null, null);
+
+                return [
+                    'type' => $type,
+                    'content' => $avatar,
+                ];
+            }
+        );
     }
 }

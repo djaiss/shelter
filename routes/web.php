@@ -6,6 +6,7 @@ use App\Http\Controllers\Settings\SettingsController;
 use App\Http\Controllers\Settings\SettingsLevelController;
 use App\Http\Controllers\Settings\SettingsProfileController;
 use App\Http\Controllers\Settings\SettingsRoleController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +23,12 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // users
+    Route::get('users', [UserController::class, 'index'])->name('user.index');
+    Route::middleware(['user'])->group(function (): void {
+        Route::get('users/{user}', [UserController::class, 'show'])->name('user.show');
+    });
 
     // settings
     Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');

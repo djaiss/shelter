@@ -8425,16 +8425,16 @@
         },
         {
             "name": "orchestra/testbench-core",
-            "version": "v8.15.1",
+            "version": "v8.15.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench-core.git",
-                "reference": "428628ef2fecffe30c1c922536242ebe0da1c47e"
+                "reference": "1bd2aa77c0fdd674d28e8d6e44fe5f6528ff966a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/428628ef2fecffe30c1c922536242ebe0da1c47e",
-                "reference": "428628ef2fecffe30c1c922536242ebe0da1c47e",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/1bd2aa77c0fdd674d28e8d6e44fe5f6528ff966a",
+                "reference": "1bd2aa77c0fdd674d28e8d6e44fe5f6528ff966a",
                 "shasum": ""
             },
             "require": {
@@ -8509,7 +8509,7 @@
                 "issues": "https://github.com/orchestral/testbench/issues",
                 "source": "https://github.com/orchestral/testbench-core"
             },
-            "time": "2023-11-10T04:43:17+00:00"
+            "time": "2023-11-20T22:34:56+00:00"
         },
         {
             "name": "orchestra/workbench",
@@ -11137,16 +11137,16 @@
         },
         {
             "name": "spatie/ray",
-            "version": "1.40.0",
+            "version": "1.40.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/ray.git",
-                "reference": "d2477d80996416ac33066f4fef8c6bd6e393fedd"
+                "reference": "8e6547ff47aae2e4f615a5dcea1e5e4911b1dc9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/ray/zipball/d2477d80996416ac33066f4fef8c6bd6e393fedd",
-                "reference": "d2477d80996416ac33066f4fef8c6bd6e393fedd",
+                "url": "https://api.github.com/repos/spatie/ray/zipball/8e6547ff47aae2e4f615a5dcea1e5e4911b1dc9f",
+                "reference": "8e6547ff47aae2e4f615a5dcea1e5e4911b1dc9f",
                 "shasum": ""
             },
             "require": {
@@ -11197,7 +11197,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/ray/issues",
-                "source": "https://github.com/spatie/ray/tree/1.40.0"
+                "source": "https://github.com/spatie/ray/tree/1.40.1"
             },
             "funding": [
                 {
@@ -11209,7 +11209,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2023-11-07T13:53:06+00:00"
+            "time": "2023-11-20T08:20:15+00:00"
         },
         {
             "name": "symfony/filesystem",
