@@ -5,6 +5,7 @@ namespace Tests\Unit\Services;
 use App\Models\Team;
 use App\Models\User;
 use App\Services\UpdateTeam;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -39,6 +40,7 @@ class UpdateTeamTest extends TestCase
 
     private function executeService(Team $team, User $user): void
     {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
         $this->actingAs($user);
         $team = (new UpdateTeam(
             team: $team,
@@ -56,6 +58,7 @@ class UpdateTeamTest extends TestCase
             'organization_id' => $user->organization_id,
             'name' => 'Accounting',
             'is_public' => false,
+            'last_active_at' => '2018-01-01 00:00:00',
         ]);
     }
 }

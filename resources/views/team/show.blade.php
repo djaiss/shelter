@@ -4,9 +4,10 @@
       <li class="inline after:content-['>'] after:text-gray-500 after:text-xs">
         <x-link href="{{ route('company.index') }}">{{ __('Company') }}</x-link>
       </li>
-      <li class="inline">
-        {{ __('Teams') }}
+      <li class="inline after:content-['>'] after:text-gray-500 after:text-xs">
+        <x-link href="{{ route('team.index') }}">{{ __('Teams') }}</x-link>
       </li>
+      <li class="inline">{{ $data['name'] }}</li>
     </ul>
   </x-slot>
 

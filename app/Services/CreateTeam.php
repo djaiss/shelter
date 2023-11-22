@@ -18,6 +18,7 @@ class CreateTeam extends BaseService
     {
         $this->create();
         $this->addCurrentUser();
+        $this->updateLastActiveAt();
 
         return $this->team;
     }
@@ -34,5 +35,12 @@ class CreateTeam extends BaseService
     private function addCurrentUser(): void
     {
         $this->team->users()->attach(auth()->user()->id);
+    }
+
+    private function updateLastActiveAt(): void
+    {
+        $this->team->update([
+            'last_active_at' => now(),
+        ]);
     }
 }

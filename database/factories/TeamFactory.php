@@ -20,6 +20,7 @@ class TeamFactory extends Factory
         return [
             'organization_id' => Organization::factory(),
             'name' => fake()->name,
+            'last_active_at' => fake()->dateTime,
         ];
     }
 }

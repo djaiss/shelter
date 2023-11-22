@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('organization_id');
             $table->string('name');
             $table->boolean('is_public')->default(true);
+            $table->datetime('last_active_at')->nullable();
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
         });

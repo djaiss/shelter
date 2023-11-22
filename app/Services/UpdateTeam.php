@@ -18,6 +18,7 @@ class UpdateTeam extends BaseService
     {
         $this->checkTeam();
         $this->update();
+        $this->updateLastActiveAt();
 
         return $this->team;
     }
@@ -34,6 +35,13 @@ class UpdateTeam extends BaseService
         $this->team->update([
             'name' => $this->name,
             'is_public' => $this->isPublic,
+        ]);
+    }
+
+    private function updateLastActiveAt(): void
+    {
+        $this->team->update([
+            'last_active_at' => now(),
         ]);
     }
 }

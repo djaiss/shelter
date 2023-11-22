@@ -22,6 +22,7 @@ class Team extends Model
         'organization_id',
         'name',
         'is_public',
+        'last_active_at',
     ];
 
     /**
@@ -31,6 +32,7 @@ class Team extends Model
      */
     protected $casts = [
         'is_public' => 'boolean',
+        'last_active_at' => 'datetime',
     ];
 
     public function organization(): BelongsTo

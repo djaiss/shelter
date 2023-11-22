@@ -5,6 +5,7 @@ namespace Tests\Unit\ViewModels\User;
 use App\Http\ViewModels\Team\TeamViewModel;
 use App\Models\Team;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -27,18 +28,22 @@ class TeamViewModelTest extends TestCase
     /** @test */
     public function it_gets_the_team_object(): void
     {
+        Carbon::setTestNow(Carbon::create(2018, 1, 1));
         $team = Team::factory()->create([
             'name' => 'Accounting',
             'is_public' => false,
+            'last_active_at' => '2021-01-01 00:00:00',
         ]);
         $array = TeamViewModel::team($team);
 
-        $this->assertCount(3, $array);
+        $this->assertCount(5, $array);
         $this->assertEquals(
             [
                 'id' => $team->id,
                 'name' => 'Accounting',
                 'is_public' => false,
+                'count' => null,
+                'last_active_at' => '3 years from now',
             ],
             $array
         );
