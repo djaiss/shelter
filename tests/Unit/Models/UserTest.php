@@ -31,7 +31,7 @@ class UserTest extends TestCase
             'organization_id' => $sales->organization_id,
         ]);
 
-        $dwight->teams()->syncWithoutDetaching([$dwight->id]);
+        $dwight->teams()->attach($dwight->id);
 
         $this->assertTrue($dwight->teams()->exists());
     }
