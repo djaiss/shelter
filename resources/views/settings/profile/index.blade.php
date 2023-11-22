@@ -11,18 +11,18 @@
   </x-slot>
 
   <div class="py-4 sm:py-12">
-    <div class="mx-auto max-w-2xl px-2 sm:px-6 lg:px-8">
-      <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 rounded sm:rounded-lg">
+    <div class="mx-auto max-w-2xl px-2">
+      <div class="overflow-hidden bg-white dark:bg-gray-800 rounded sm:rounded-lg p-1">
         <form method="POST" action="{{ route('settings.profile.update') }}">
           @csrf
           @method('PUT')
 
-          <div class="relative border-b dark:border-gray-600 px-6 py-4">
-            <h1 class="text-center text-lg font-bold">{{ __('Update your profile') }}</h1>
+          <div class="relative border-b dark:border-gray-600 py-4">
+            <h1 class="text-lg font-bold">{{ __('Update your profile') }}</h1>
           </div>
 
           <!-- name -->
-          <div class="mb-1 grid grid-flow-col grid-cols-2 gap-4 px-6 py-4">
+          <div class="mb-1 grid grid-flow-row sm:grid-flow-col sm:grid-cols-2 gap-4 py-4">
             <div class="mr-0">
               <x-input-label for="first_name" :value="__('First name')" />
               <x-text-input class="mt-1 block w-full"
@@ -50,7 +50,7 @@
           </div>
 
           <!-- email -->
-          <div class="relative px-6 pb-4">
+          <div class="relative pb-4">
             <x-input-label for="email"
                           :value="__('Email address')" />
 
@@ -70,7 +70,7 @@
           </div>
 
           <!-- locale -->
-          <div class="relative px-6 pb-4">
+          <div class="relative pb-4">
             <label for="locale" class="block text-sm font-medium leading-6 text-gray-900">{{ __('Language') }}</label>
             <div class="mt-2">
               <select id="locale" name="locale" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
@@ -81,7 +81,7 @@
           </div>
 
           <!-- actions -->
-          <div class="flex items-center justify-between border-t dark:border-gray-600 px-6 py-4">
+          <div class="flex items-center justify-between border-t dark:border-gray-600 py-4">
             <div>
               <x-primary-button class="w-full text-center">
                 {{ __('Save') }}

@@ -11,8 +11,8 @@
   </x-slot>
 
   <div class="py-4 sm:py-12">
-    <div class="mx-auto max-w-2xl px-2 sm:px-6 lg:px-8">
-      <div hx-target="#roles-index" hx-swap="innerHTML" hx-get="{{ route('settings.role.index') }}" hx-trigger="loadRoles from:body" class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 rounded sm:rounded-lg p-6">
+    <div class="mx-auto max-w-2xl px-2">
+      <div hx-target="#roles-index" hx-swap="innerHTML" hx-get="{{ route('settings.role.index') }}" hx-trigger="loadRoles from:body" class="overflow-hidden bg-white dark:bg-gray-800 rounded sm:rounded-lg p-1">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 border-b dark:border-gray-600 pb-2">
           <h1 class="font-semibold mb-2 sm:mb-0">{{ __('All the roles in your organization') }}</h1>
 

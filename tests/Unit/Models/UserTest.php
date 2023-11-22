@@ -3,6 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Organization;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -23,16 +24,29 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    public function it_has_many_teams(): void
+    {
+        $team = Team::factory()->create();
+        $dwight = User::factory()->create([
+            'organization_id' => $team->organization_id,
+        ]);
+
+        $dwight->teams()->attach($team->id);
+
+        $this->assertTrue($dwight->teams()->exists());
+    }
+
+    /** @test */
     public function it_returns_the_name_attribute(): void
     {
-        $rachel = User::factory()->create([
+        $dwight = User::factory()->create([
             'first_name' => 'Dwight',
             'last_name' => 'Schrute',
         ]);
 
         $this->assertEquals(
             'Dwight Schrute',
-            $rachel->name,
+            $dwight->name,
         );
     }
 
