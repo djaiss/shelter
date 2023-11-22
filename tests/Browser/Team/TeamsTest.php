@@ -21,7 +21,7 @@ class TeamsTest extends DuskTestCase
                 ->type('group-name', 'Accounting')
                 ->radio('visibility', '0')
                 ->click('@submit-form-button')
-                ->assertPathIs('/teams/'. Team::latest()->first()->id)
+                ->assertPathIs('/teams/' . Team::latest()->first()->id)
                 ->assertSee('Accounting');
         });
     }
