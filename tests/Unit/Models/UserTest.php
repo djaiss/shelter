@@ -26,12 +26,12 @@ class UserTest extends TestCase
     /** @test */
     public function it_has_many_teams(): void
     {
-        $sales = Team::factory()->create([]);
+        $team = Team::factory()->create();
         $dwight = User::factory()->create([
-            'organization_id' => $sales->organization_id,
+            'organization_id' => $team->organization_id,
         ]);
 
-        $dwight->teams()->attach($dwight->id);
+        $dwight->teams()->attach($team->id);
 
         $this->assertTrue($dwight->teams()->exists());
     }
@@ -39,14 +39,14 @@ class UserTest extends TestCase
     /** @test */
     public function it_returns_the_name_attribute(): void
     {
-        $rachel = User::factory()->create([
+        $dwight = User::factory()->create([
             'first_name' => 'Dwight',
             'last_name' => 'Schrute',
         ]);
 
         $this->assertEquals(
             'Dwight Schrute',
-            $rachel->name,
+            $dwight->name,
         );
     }
 
