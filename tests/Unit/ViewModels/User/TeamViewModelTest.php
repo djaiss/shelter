@@ -54,7 +54,7 @@ class TeamViewModelTest extends TestCase
 
         $array = TeamViewModel::show($team);
 
-        $this->assertCount(2, $array);
+        $this->assertCount(3, $array);
         $this->assertEquals(
             [
                 'id' => $team->id,

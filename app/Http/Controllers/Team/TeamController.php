@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Team;
 
 use App\Http\Controllers\Controller;
 use App\Http\ViewModels\Team\TeamViewModel;
-use App\Http\ViewModels\User\UserViewModel;
 use App\Services\CreateTeam;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,8 +13,8 @@ class TeamController extends Controller
 {
     public function index(): View
     {
-        return view('user.index', [
-            'data' => UserViewModel::index(),
+        return view('team.index', [
+            'data' => TeamViewModel::index(),
         ]);
     }
 
