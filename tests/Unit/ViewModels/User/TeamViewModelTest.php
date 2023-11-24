@@ -52,19 +52,50 @@ class TeamViewModelTest extends TestCase
     /** @test */
     public function it_gets_the_data_needed_for_the_show_view(): void
     {
+        $user = User::factory()->create([
+            'settings_team_show_actions' => true,
+        ]);
         $team = Team::factory()->create([
             'name' => 'Accounting',
             'is_public' => false,
         ]);
+        $this->actingAs($user);
 
         $array = TeamViewModel::show($team);
 
-        $this->assertCount(3, $array);
+        $this->assertCount(6, $array);
         $this->assertEquals(
             [
                 'id' => $team->id,
                 'name' => 'Accounting',
                 'is_public' => false,
+                'show_actions' => true,
+                'description' => null,
+                'url' => [
+                    'toggle_actions' => env('APP_URL') . '/teams/' . $team->id . '/toggleSettings/settings_team_show_actions',
+                ],
+            ],
+            $array
+        );
+    }
+
+    /** @test */
+    public function it_gets_the_data_needed_for_the_edit_view(): void
+    {
+        $team = Team::factory()->create([
+            'name' => 'Accounting',
+            'is_public' => false,
+        ]);
+
+        $array = TeamViewModel::edit($team);
+
+        $this->assertCount(4, $array);
+        $this->assertEquals(
+            [
+                'id' => $team->id,
+                'name' => 'Accounting',
+                'is_public' => false,
+                'description' => null,
             ],
             $array
         );

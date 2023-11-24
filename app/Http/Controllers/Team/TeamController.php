@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Team;
 use App\Http\Controllers\Controller;
 use App\Http\ViewModels\Team\TeamViewModel;
 use App\Services\CreateTeam;
+use App\Services\UpdateTeam;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -48,6 +49,37 @@ class TeamController extends Controller
 
         return view('team.show', [
             'data' => TeamViewModel::show($team),
+        ]);
+    }
+
+    public function edit(Request $request): View
+    {
+        $team = $request->attributes->get('team');
+
+        return view('team.edit', [
+            'data' => TeamViewModel::edit($team),
+        ]);
+    }
+
+    public function update(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'group-name' => 'required|string|max:255',
+            'visibility' => 'required|boolean',
+            'description' => 'nullable|string|max:255',
+        ]);
+
+        $team = (new UpdateTeam(
+            team: $request->attributes->get('team'),
+            name: $validated['group-name'],
+            isPublic: $validated['visibility'],
+            description: $validated['description'],
+        ))->execute();
+
+        $request->session()->flash('status', __('Changes saved'));
+
+        return redirect()->route('team.show', [
+            'team' => $team->id,
         ]);
     }
 }

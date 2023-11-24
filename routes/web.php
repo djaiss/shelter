@@ -7,6 +7,7 @@ use App\Http\Controllers\Settings\SettingsLevelController;
 use App\Http\Controllers\Settings\SettingsProfileController;
 use App\Http\Controllers\Settings\SettingsRoleController;
 use App\Http\Controllers\Team\TeamController;
+use App\Http\Controllers\Team\TeamToggleSettingsController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::post('teams', [TeamController::class, 'store'])->name('team.store');
     Route::middleware(['team'])->group(function (): void {
         Route::get('teams/{team}', [TeamController::class, 'show'])->name('team.show');
+        Route::put('teams/{team}/toggleSettings/{setting}', [TeamToggleSettingsController::class, 'update'])->name('team.toggle.update');
+        Route::get('teams/{team}/edit', [TeamController::class, 'edit'])->name('team.edit');
+        Route::put('teams/{team}', [TeamController::class, 'update'])->name('team.update');
     });
 
     // settings

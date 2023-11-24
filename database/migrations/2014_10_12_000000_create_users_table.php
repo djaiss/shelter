@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('permissions');
             $table->string('locale')->default('en');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
             $table->string('name_for_avatar');
+            $table->string('settings_team_show_actions')->default(true);
+            $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');

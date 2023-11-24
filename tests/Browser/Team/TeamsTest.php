@@ -10,11 +10,12 @@ use Tests\DuskTestCase;
 class TeamsTest extends DuskTestCase
 {
     /** @test */
-    public function it_lists_all_the_teams(): void
+    public function a_user_can_crud_a_team(): void
     {
         $user = User::factory()->create();
 
         $this->browse(function (Browser $browser) use ($user): void {
+            // create a team
             $browser->loginAs($user)
                 ->visit('/teams')
                 ->click('@add-team-cta')
@@ -23,6 +24,24 @@ class TeamsTest extends DuskTestCase
                 ->click('@submit-form-button')
                 ->assertPathIs('/teams/' . Team::latest()->first()->id)
                 ->assertSee('Accounting');
+
+            // edit the team
+            $team = Team::orderBy('updated_at', 'desc')
+                ->where('organization_id', $user->organization_id)
+                ->first();
+
+            $browser->visit('/teams/' . $team->id)
+                ->waitFor('@edit-team')
+                ->click('@edit-team')
+                ->waitFor('@submit-form-button')
+                ->type('group-name', 'Accounting team')
+                ->radio('visibility', '0')
+                ->type('description', 'This is the accounting team')
+                ->waitFor('@submit-form-button')
+                ->click('@submit-form-button')
+                ->assertPathIs('/teams/' . $team->id)
+                ->assertSee('Accounting team')
+                ->assertSee('This is the accounting team');
         });
     }
 }

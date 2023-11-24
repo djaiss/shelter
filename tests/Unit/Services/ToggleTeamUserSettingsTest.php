@@ -4,22 +4,20 @@ namespace Tests\Unit\Services;
 
 use App\Models\Team;
 use App\Models\User;
-use App\Services\UpdateTeam;
+use App\Services\ToggleTeamUserSettings;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class UpdateTeamTest extends TestCase
+class ToggleTeamUserSettingsTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
     public function it_updates_a_team(): void
     {
-        $user = User::factory()->create([
-            'permissions' => User::ROLE_ACCOUNT_MANAGER,
-        ]);
+        $user = User::factory()->create();
         $team = Team::factory()->create([
             'organization_id' => $user->organization_id,
         ]);
@@ -42,11 +40,9 @@ class UpdateTeamTest extends TestCase
     {
         Carbon::setTestNow(Carbon::create(2018, 1, 1));
         $this->actingAs($user);
-        $team = (new UpdateTeam(
+        $team = (new ToggleTeamUserSettings(
             team: $team,
-            name: 'Accounting',
-            description: null,
-            isPublic: false,
+            settingsName: 'settings_team_show_actions',
         ))->execute();
 
         $this->assertInstanceOf(
@@ -54,13 +50,6 @@ class UpdateTeamTest extends TestCase
             $team
         );
 
-        $this->assertDatabaseHas('teams', [
-            'id' => $team->id,
-            'organization_id' => $user->organization_id,
-            'name' => 'Accounting',
-            'description' => null,
-            'is_public' => false,
-            'last_active_at' => '2018-01-01 00:00:00',
-        ]);
+        $this->assertTrue($user->fresh()->settings_team_show_actions);
     }
 }
