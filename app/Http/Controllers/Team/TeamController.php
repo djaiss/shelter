@@ -51,9 +51,10 @@ class TeamController extends Controller
     public function show(Request $request): View
     {
         $team = $request->attributes->get('team');
+        $isPartOfTeam = $request->attributes->get('isPartOfTeam');
 
         return view('team.show', [
-            'data' => TeamViewModel::show($team),
+            'data' => TeamViewModel::show($team, $isPartOfTeam),
         ]);
     }
 

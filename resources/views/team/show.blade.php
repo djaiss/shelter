@@ -36,7 +36,9 @@
           @endif
 
           <!-- actions -->
+          @if ($data['is_part_of_team'])
           @include('team.partials.actions')
+          @endif
         </div>
 
         <!-- right -->

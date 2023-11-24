@@ -31,13 +31,14 @@ class TeamViewModel
         ];
     }
 
-    public static function show(Team $team): array
+    public static function show(Team $team, bool $isPartOfTeam): array
     {
         return [
             'id' => $team->id,
             'name' => $team->name,
             'is_public' => $team->is_public,
             'description' => $team->description,
+            'is_part_of_team' => $isPartOfTeam,
             'show_actions' => auth()->user()->settings_team_show_actions,
             'url' => [
                 'toggle_actions' => route('team.toggle.update', [

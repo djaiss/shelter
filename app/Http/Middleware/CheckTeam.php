@@ -28,11 +28,14 @@ class CheckTeam
                 ->with('users')
                 ->findOrFail($id);
 
-            if (! $team->is_public && ! $team->users->contains(auth()->user()->id)) {
+            $isPartOfTeam = $team->users->contains(auth()->user()->id);
+
+            if (! $team->is_public && ! $isPartOfTeam) {
                 abort(401);
             }
 
             $request->attributes->add(['team' => $team]);
+            $request->attributes->add(['isPartOfTeam' => $isPartOfTeam]);
 
             return $next($request);
         } catch (ModelNotFoundException) {
