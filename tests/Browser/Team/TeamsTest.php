@@ -42,6 +42,14 @@ class TeamsTest extends DuskTestCase
                 ->assertPathIs('/teams/' . $team->id)
                 ->assertSee('Accounting team')
                 ->assertSee('This is the accounting team');
+
+            // delete the team
+            $browser->visit('/teams/' . $team->id)
+                ->waitFor('@delete-team')
+                ->click('@delete-team')
+                ->acceptDialog()
+                ->pause(150)
+                ->assertDontSee('Accounting team');
         });
     }
 }

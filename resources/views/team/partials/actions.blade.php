@@ -10,6 +10,17 @@
   </div>
 
   <div x-cloak x-show="open" x-transition>
-    <x-link href="{{ route('team.edit', ['team' => $data['id']]) }}" dusk="edit-team">{{ __('Edit team details') }}</x-link>
+    <ul>
+      <li>
+        <x-link href="{{ route('team.edit', ['team' => $data['id']]) }}" dusk="edit-team">{{ __('Edit team details') }}</x-link>
+      </li>
+      <li>
+        <x-htmx-link
+          dusk="delete-team"
+          hx-delete="{{ route('team.destroy', $data['id']) }}"
+          hx-confirm="{{ __('Are you sure you want to proceed? This can not be undone.') }}"
+          >{{ __('Delete') }}</x-htmx-link>
+      </li>
+    </ul>
   </div>
 </div>
