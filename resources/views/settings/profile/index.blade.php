@@ -82,13 +82,13 @@
 
           <!-- actions -->
           <div class="flex items-center justify-between border-t dark:border-gray-600 py-4">
+            <x-link href="{{ route('settings.index') }}">{{ __('Back') }}</x-link>
+
             <div>
               <x-primary-button class="w-full text-center">
                 {{ __('Save') }}
               </x-primary-button>
             </div>
-
-            <x-link href="{{ route('settings.index') }}">{{ __('Back') }}</x-link>
           </div>
         </form>
       </div>

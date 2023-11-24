@@ -39,4 +39,23 @@ class ManageTeamTest extends TestCase
             ->assertStatus(302)
             ->assertRedirectToRoute('team.show', ['team' => Team::latest()->first()->id]);
     }
+
+    /** @test */
+    public function a_user_can_update_a_team(): void
+    {
+        $user = User::factory()->create();
+        $team = Team::factory()->create([
+            'organization_id' => $user->organization_id,
+        ]);
+        $user->teams()->attach($team);
+
+        $this->actingAs($user)
+            ->put('/teams/' . $team->id, [
+                'group-name' => 'Accounting',
+                'visibility' => false,
+                'description' => 'This is the accounting team',
+            ])
+            ->assertStatus(302)
+            ->assertRedirectToRoute('team.show', ['team' => Team::latest()->first()->id]);
+    }
 }

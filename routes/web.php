@@ -42,6 +42,8 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::middleware(['team'])->group(function (): void {
         Route::get('teams/{team}', [TeamController::class, 'show'])->name('team.show');
         Route::put('teams/{team}/toggleSettings/{setting}', [TeamToggleSettingsController::class, 'update'])->name('team.toggle.update');
+        Route::get('teams/{team}/edit', [TeamController::class, 'edit'])->name('team.edit');
+        Route::put('teams/{team}', [TeamController::class, 'update'])->name('team.update');
     });
 
     // settings

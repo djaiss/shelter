@@ -21,41 +21,27 @@
           <div class="flex items-center mb-2">
             <h1 class="text-2xl mr-1 font-semibold">{{ $data['name'] }}</h1>
 
+            @if (! $data['is_public'])
             <x-tooltip text="{{ __('The team is private') }}">
               <x-heroicon-o-lock-closed class="w-4 h-4 text-gray-500" />
             </x-tooltip>
+            @endif
           </div>
 
           <!-- description -->
-          <p class="mb-4">The accounting department is responsible for managing financial records, analyzing financial data, and ensuring compliance with financial regulations.</p>
+          @if ($data['description'])
+          <p class="mb-4">{{ $data['description'] }}</p>
+          @else
+          <p class="text-gray-500 mb-4 text-sm">{{ __('There are no description for now.') }}</p>
+          @endif
 
           <!-- actions -->
-          <div x-data="{ open: @json($data['show_actions']) }">
-            <div x-show="!open" @click="open = ! open" class="flex items-center mr-2 cursor-pointer">
-              <x-heroicon-o-chevron-right
-                hx-put="{{ $data['url']['toggle_actions'] }}"
-                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                class="w-4 h-4 mr-1 text-gray-500" />
-              <h2 class="font-semibold">{{ __('Actions') }}</h2>
-            </div>
-
-            <div x-show="open" @click="open = ! open" class="flex items-center mb-2 pb-1 border-b mr-2 cursor-pointer">
-              <x-heroicon-o-chevron-down
-                hx-put="{{ $data['url']['toggle_actions'] }}"
-                hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
-                class="w-4 h-4 mr-1 text-gray-500" />
-              <h2 class="font-semibold">{{ __('Actions') }}</h2>
-            </div>
-
-            <div x-cloak x-show="open" x-transition>
-              <x-link href="{{ route('settings.profile.index') }}">{{ __('Edit team details') }}</x-link>
-            </div>
-          </div>
+          @include('team.partials.actions')
         </div>
 
         <!-- right -->
         <div class="p-0 sm:px-3 sm:py-0">
-          safd
+            safd
         </div>
       </div>
     </div>
