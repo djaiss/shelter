@@ -91,7 +91,7 @@ class TeamController extends Controller
     public function destroy(Request $request, Team $team): Response
     {
         if (! $team->is_public && ! $team->users->contains(auth()->user()->id)) {
-            throw ModelNotFoundException::class;
+            throw new ModelNotFoundException;
         }
 
         (new DestroyTeam(
