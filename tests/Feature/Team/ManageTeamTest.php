@@ -58,4 +58,18 @@ class ManageTeamTest extends TestCase
             ->assertStatus(302)
             ->assertRedirectToRoute('team.show', ['team' => Team::latest()->first()->id]);
     }
+
+    /** @test */
+    public function a_user_can_delete_a_team(): void
+    {
+        $user = User::factory()->create();
+        $team = Team::factory()->create([
+            'organization_id' => $user->organization_id,
+        ]);
+        $user->teams()->attach($team);
+
+        $this->actingAs($user)
+            ->delete('/teams/' . $team->id)
+            ->assertStatus(200);
+    }
 }

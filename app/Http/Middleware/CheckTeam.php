@@ -17,10 +17,16 @@ class CheckTeam
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (is_string($request->route()->parameter('team'))) {
+            $id = (int) $request->route()->parameter('team');
+        } else {
+            $id = $request->route()->parameter('team')->id;
+        }
+
         try {
             $team = Team::where('organization_id', auth()->user()->organization_id)
                 ->with('users')
-                ->findOrFail($request->route()->parameter('team'));
+                ->findOrFail($id);
 
             if (! $team->is_public && ! $team->users->contains(auth()->user()->id)) {
                 abort(401);

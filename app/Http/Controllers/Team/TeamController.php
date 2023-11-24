@@ -4,11 +4,16 @@ namespace App\Http\Controllers\Team;
 
 use App\Http\Controllers\Controller;
 use App\Http\ViewModels\Team\TeamViewModel;
+use App\Models\Team;
 use App\Services\CreateTeam;
+use App\Services\DestroyTeam;
 use App\Services\UpdateTeam;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Mauricius\LaravelHtmx\Http\HtmxResponseClientRedirect;
 
 class TeamController extends Controller
 {
@@ -81,5 +86,18 @@ class TeamController extends Controller
         return redirect()->route('team.show', [
             'team' => $team->id,
         ]);
+    }
+
+    public function destroy(Request $request, Team $team): Response
+    {
+        if (! $team->is_public && ! $team->users->contains(auth()->user()->id)) {
+            throw ModelNotFoundException::class;
+        }
+
+        (new DestroyTeam(
+            team: $team,
+        ))->execute();
+
+        return new HtmxResponseClientRedirect(route('team.index'));
     }
 }
