@@ -61,14 +61,15 @@ class TeamViewModelTest extends TestCase
         ]);
         $this->actingAs($user);
 
-        $array = TeamViewModel::show($team);
+        $array = TeamViewModel::show($team, true);
 
-        $this->assertCount(6, $array);
+        $this->assertCount(7, $array);
         $this->assertEquals(
             [
                 'id' => $team->id,
                 'name' => 'Accounting',
                 'is_public' => false,
+                'is_part_of_team' => true,
                 'show_actions' => true,
                 'description' => null,
                 'url' => [

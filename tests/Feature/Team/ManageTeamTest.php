@@ -72,4 +72,31 @@ class ManageTeamTest extends TestCase
             ->delete('/teams/' . $team->id)
             ->assertStatus(200);
     }
+
+    /** @test */
+    public function an_external_user_of_a_team_can_edit_or_delete_a_team(): void
+    {
+        $user = User::factory()->create();
+        $team = Team::factory()->create([
+            'organization_id' => $user->organization_id,
+        ]);
+        $user->teams()->attach($team);
+
+        $this->actingAs($user)
+            ->get('/teams/' . $team->id)
+            ->assertSee('Edit team details');
+    }
+
+    /** @test */
+    public function an_external_user_of_a_team_cant_edit_or_delete_a_team(): void
+    {
+        $user = User::factory()->create();
+        $team = Team::factory()->create([
+            'organization_id' => $user->organization_id,
+        ]);
+
+        $this->actingAs($user)
+            ->get('/teams/' . $team->id)
+            ->assertDontSee('Edit team details');
+    }
 }
