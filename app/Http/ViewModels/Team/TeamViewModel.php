@@ -37,6 +37,13 @@ class TeamViewModel
             'id' => $team->id,
             'name' => $team->name,
             'is_public' => $team->is_public,
+            'show_actions' => auth()->user()->settings_team_show_actions,
+            'url' => [
+                'toggle_actions' => route('team.toggle.update', [
+                    'team' => $team->id,
+                    'setting' => 'settings_team_show_actions',
+                ]),
+            ],
         ];
     }
 }

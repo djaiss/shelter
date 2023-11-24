@@ -37,7 +37,7 @@
           </div>
 
           <!-- is public -->
-          <p class="block font-medium text-sm text-gray-700 dark:text-gray-300 px-6">{{ __('Team visibility') }}</p>
+          <p class="block font-medium text-sm text-gray-700 dark:text-gray-300">{{ __('Team visibility') }}</p>
           <div class="grid grid-flow-row sm:grid-flow-col sm:grid-cols-2 gap-4 pt-2 pb-4">
             <div class="flex p-3 ps-4 border border-gray-200 rounded dark:border-gray-700">
               <div class="flex items-center h-5">

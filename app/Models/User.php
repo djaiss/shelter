@@ -40,6 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'permissions',
         'locale',
+        'settings_team_show_actions',
     ];
 
     /**
@@ -60,6 +61,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'settings_team_show_actions' => 'boolean',
     ];
 
     public function organization(): BelongsTo

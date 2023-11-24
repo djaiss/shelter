@@ -5,13 +5,11 @@ namespace App\Services;
 use App\Models\Team;
 use Exception;
 
-class UpdateTeam extends BaseService
+class ToggleTeamUserSettings extends BaseService
 {
     public function __construct(
         public Team $team,
-        public string $name,
-        public ?string $description,
-        public bool $isPublic,
+        public string $settingsName,
     ) {
     }
 
@@ -19,7 +17,6 @@ class UpdateTeam extends BaseService
     {
         $this->checkTeam();
         $this->update();
-        $this->updateLastActiveAt();
 
         return $this->team;
     }
@@ -33,17 +30,7 @@ class UpdateTeam extends BaseService
 
     private function update(): void
     {
-        $this->team->update([
-            'name' => $this->name,
-            'description' => $this->description,
-            'is_public' => $this->isPublic,
-        ]);
-    }
-
-    private function updateLastActiveAt(): void
-    {
-        $this->team->update([
-            'last_active_at' => now(),
-        ]);
+        auth()->user()->{$this->settingsName} = ! auth()->user()->{$this->settingsName};
+        auth()->user()->save();
     }
 }

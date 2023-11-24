@@ -52,19 +52,27 @@ class TeamViewModelTest extends TestCase
     /** @test */
     public function it_gets_the_data_needed_for_the_show_view(): void
     {
+        $user = User::factory()->create([
+            'settings_team_show_actions' => true,
+        ]);
         $team = Team::factory()->create([
             'name' => 'Accounting',
             'is_public' => false,
         ]);
+        $this->actingAs($user);
 
         $array = TeamViewModel::show($team);
 
-        $this->assertCount(3, $array);
+        $this->assertCount(5, $array);
         $this->assertEquals(
             [
                 'id' => $team->id,
                 'name' => 'Accounting',
                 'is_public' => false,
+                'show_actions' => true,
+                'url' => [
+                    'toggle_actions' => env('APP_URL') . '/teams/' . $team->id . '/toggleSettings/settings_team_show_actions',
+                ],
             ],
             $array
         );

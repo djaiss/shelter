@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('organization_id');
             $table->string('name');
+            $table->string('description')->nullable();
             $table->boolean('is_public')->default(true);
             $table->datetime('last_active_at')->nullable();
             $table->timestamps();
