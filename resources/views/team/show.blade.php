@@ -7,7 +7,7 @@
       <li class="inline after:content-['>'] after:text-gray-500 after:text-xs">
         <x-link href="{{ route('team.index') }}">{{ __('Teams') }}</x-link>
       </li>
-      <li class="inline">{{ $data['name'] }}</li>
+      <li class="inline">{{ $data['team']['name'] }}</li>
     </ul>
   </x-slot>
 
@@ -19,9 +19,9 @@
         <div>
           <!-- name -->
           <div class="flex items-center mb-2">
-            <h1 class="text-2xl mr-1 font-semibold">{{ $data['name'] }}</h1>
+            <h1 class="text-2xl mr-1 font-semibold">{{ $data['team']['name'] }}</h1>
 
-            @if (! $data['is_public'])
+            @if (! $data['team']['is_public'])
             <x-tooltip text="{{ __('The team is private') }}">
               <x-heroicon-o-lock-closed class="w-4 h-4 text-gray-500" />
             </x-tooltip>
@@ -29,21 +29,38 @@
           </div>
 
           <!-- description -->
-          @if ($data['description'])
-          <p class="mb-4">{{ $data['description'] }}</p>
+          @if ($data['team']['description'])
+          <p class="mb-4">{{ $data['team']['description'] }}</p>
           @else
           <p class="text-gray-500 mb-4 text-sm">{{ __('There are no description for now.') }}</p>
           @endif
 
           <!-- actions -->
-          @if ($data['is_part_of_team'])
+          @if ($data['team']['is_part_of_team'])
           @include('team.partials.actions')
           @endif
         </div>
 
         <!-- right -->
         <div class="p-0 sm:px-3 sm:py-0">
-            safd
+          <!-- members -->
+          <div>
+            <!-- title -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b dark:border-gray-600 pb-2">
+              <h1 class="font-semibold mb-2 sm:mb-0">{{ __('Members') }}</h1>
+
+              <x-primary-link :boost="true" href="{{ route('team.member.new', ['team' => $data['team']['id']]) }}" dusk="add-user-cta" class="text-sm">
+                {{ __('Add a member') }}
+              </x-primary-link>
+            </div>
+
+            <!-- list -->
+            @foreach($data['team']['users'] as $user)
+            <div class="text-sm px-2 py-1 first:border-t border-b hover:bg-blue-50 dark:hover:bg-gray-600">
+              {{ $user['name'] }}
+            </div>
+            @endforeach
+          </div>
         </div>
       </div>
     </div>

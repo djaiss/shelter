@@ -4,24 +4,27 @@ namespace Tests\Unit\Services;
 
 use App\Models\Team;
 use App\Models\User;
-use App\Services\ToggleTeamUserSettings;
+use App\Services\AddUserToTeam;
 use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class ToggleTeamUserSettingsTest extends TestCase
+class AddUserToTeamTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
-    public function it_updates_a_team(): void
+    public function it_adds_a_user_to_a_team(): void
     {
         $user = User::factory()->create();
         $team = Team::factory()->create([
             'organization_id' => $user->organization_id,
         ]);
-        $user->teams()->attach($team);
-        $this->executeService($team, $user);
+        $loggedUser = User::factory()->create([
+            'organization_id' => $user->organization_id,
+        ]);
+        $loggedUser->teams()->attach($team);
+        $this->executeService($team, $user, $loggedUser);
     }
 
     /** @test */
@@ -32,15 +35,18 @@ class ToggleTeamUserSettingsTest extends TestCase
         $team = Team::factory()->create([
             'organization_id' => $user->organization_id,
         ]);
-        $this->executeService($team, $user);
+        $loggedUser = User::factory()->create([
+            'organization_id' => $user->organization_id,
+        ]);
+        $this->executeService($team, $user, $loggedUser);
     }
 
-    private function executeService(Team $team, User $user): void
+    private function executeService(Team $team, User $user, User $loggedUser): void
     {
-        $this->actingAs($user);
-        $team = (new ToggleTeamUserSettings(
+        $this->actingAs($loggedUser);
+        $team = (new AddUserToTeam(
             team: $team,
-            settingsName: 'settings_team_show_actions',
+            user: $user,
         ))->execute();
 
         $this->assertInstanceOf(
@@ -48,6 +54,9 @@ class ToggleTeamUserSettingsTest extends TestCase
             $team
         );
 
-        $this->assertTrue($user->fresh()->settings_team_show_actions);
+        $this->assertDatabaseHas('team_user', [
+            'team_id' => $team->id,
+            'user_id' => $user->id,
+        ]);
     }
 }

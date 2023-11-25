@@ -3,6 +3,8 @@
 namespace App\Http\ViewModels\Team;
 
 use App\Models\Team;
+use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 class TeamViewModel
 {
@@ -33,18 +35,32 @@ class TeamViewModel
 
     public static function show(Team $team, bool $isPartOfTeam): array
     {
+        $users = Cache::remember('team-users-'.$team->id, 3600, function () use ($team) {
+            return $team->users()
+                ->select('id', 'first_name', 'last_name', 'name_for_avatar')
+                ->get()
+                ->map(fn (User $user) => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'avatar' => $user->avatar,
+                ]);
+        });
+
         return [
-            'id' => $team->id,
-            'name' => $team->name,
-            'is_public' => $team->is_public,
-            'description' => $team->description,
-            'is_part_of_team' => $isPartOfTeam,
-            'show_actions' => auth()->user()->settings_team_show_actions,
-            'url' => [
-                'toggle_actions' => route('team.toggle.update', [
-                    'team' => $team->id,
-                    'setting' => 'settings_team_show_actions',
-                ]),
+            'team' => [
+                'id' => $team->id,
+                'name' => $team->name,
+                'is_public' => $team->is_public,
+                'description' => $team->description,
+                'is_part_of_team' => $isPartOfTeam,
+                'show_actions' => auth()->user()->settings_team_show_actions,
+                'users' => $users,
+                'url' => [
+                    'toggle_actions' => route('team.toggle.update', [
+                        'team' => $team->id,
+                        'setting' => 'settings_team_show_actions',
+                    ]),
+                ],
             ],
         ];
     }

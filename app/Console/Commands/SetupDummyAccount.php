@@ -2,12 +2,16 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Team;
 use App\Models\User;
+use App\Services\AddUserToTeam;
 use App\Services\CreateAccount;
+use App\Services\CreateTeam;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class SetupDummyAccount extends Command
@@ -46,6 +50,7 @@ class SetupDummyAccount extends Command
         $this->wipeAndMigrateDB();
         $this->createFirstUser();
         $this->createOtherUsers();
+        $this->addTeams();
 
         $this->stop();
     }
@@ -105,6 +110,8 @@ class SetupDummyAccount extends Command
         ))->execute();
         $this->user->email_verified_at = Carbon::now();
         $this->user->save();
+
+        Auth::login($this->user);
     }
 
     private function createOtherUsers(): void
@@ -122,6 +129,54 @@ class SetupDummyAccount extends Command
                 'organization_id' => $this->user->organization_id,
             ]);
         }
+    }
+
+    private function addTeams(): void
+    {
+        $this->info('☐ Create teams');
+
+        $teamNames = [
+            'Frontend Development Team',
+            'Backend Development Team',
+            'Full Stack Development Team',
+            'Quality Assurance (QA) Team',
+            'User Experience (UX) Team',
+            'DevOps Team',
+            'Systems Administration Team',
+            'Data Engineering Team',
+            'Data Science Team',
+            'Mobile App Development Team',
+            'Security Team',
+            'Technical Support Team',
+            'Project Management Team',
+            'Sales and Marketing Team',
+            'Product Management Team',
+            'User Research Team',
+            'Human Resources Team',
+            'Finance and Accounting Team',
+            'Customer Support Team',
+            'IT Operations Team',
+        ];
+
+        for ($i = 0; $i < rand(3, 20); $i++) {
+            $team = (new CreateTeam(
+                name: $teamNames[array_rand($teamNames)],
+                isPublic: rand(1, 2) == false,
+            ))->execute();
+
+            $this->addUsersToTeam($team);
+        }
+    }
+
+    private function addUsersToTeam(Team $team): void
+    {
+        $this->info('☐ Add user to team ' . $team->name);
+
+        User::inRandomOrder()->limit(rand(3, 15))->get()
+            ->map(fn (User $user) => (new AddUserToTeam(
+                team: $team,
+                user: $user,
+            ))->execute());
     }
 
     private function artisan(string $message, string $command, array $arguments = []): void
