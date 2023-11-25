@@ -6,7 +6,7 @@
     "build": "vite build",
     "lint": "eslint --ext .js *.js resources",
     "pretest": "DB_CONNECTION=testing php artisan migrate:fresh",
-    "posttest": "yarn lint --fix && ./vendor/bin/duster fix && yarn lint",
+    "posttest": "yarn lint --fix && ./vendor/bin/duster fix && yarn lint && composer update",
     "test": "vendor/bin/phpunit"
   },
   "devDependencies": {

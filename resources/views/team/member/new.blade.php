@@ -38,6 +38,12 @@
             <x-input-error class="mt-2" :messages="$errors->get('label')" />
           </div>
 
+          <!-- list of users -->
+          @foreach($data['team']['users'] as $user)
+          <div>
+          </div>
+          @endforeach
+
           <!-- actions -->
           <div class="flex items-center justify-between border-t dark:border-gray-600 py-4">
             <x-link href="{{ route('team.show', ['team' => $data['team']['id']]) }}">{{ __('Back') }}</x-link>
