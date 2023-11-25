@@ -4,7 +4,6 @@ namespace App\Http\ViewModels\Team;
 
 use App\Models\Team;
 use App\Models\User;
-use Illuminate\Support\Facades\Cache;
 
 class TeamMemberViewModel
 {

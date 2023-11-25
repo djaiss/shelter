@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * App\Models\Level
+ * App\Models\Level.
  *
  * @property int $id
  * @property int $organization_id
@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Organization $organization
+ *
  * @method static \Database\Factories\LevelFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Level newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Level newQuery()
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Level whereLabelTranslationKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Level whereOrganizationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Level whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Level extends Model
