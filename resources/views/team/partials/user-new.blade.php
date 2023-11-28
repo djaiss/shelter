@@ -28,10 +28,12 @@
       hx-target="#user-list"
       @click="show = false"
       dusk="user-candidate-{{ $user['id'] }}"
-      class="flex cursor-pointer items-center border-b border-gray-200 px-3 py-2 hover:bg-slate-50 dark:border-gray-700 dark:bg-slate-900 hover:dark:bg-slate-800">
-      <x-avatar :data="$user['avatar']" class="w-5" />
+      class="sm:flex cursor-pointer items-center border-b border-gray-200 px-3 py-2 hover:bg-slate-50 dark:border-gray-700 dark:bg-slate-900 hover:dark:bg-slate-800">
+      <div class="flex">
+        <x-avatar :data="$user['avatar']" class="w-5" />
 
-      <span class="mr-3">{{ $user['name'] }}</span>
+        <span class="mr-3">{{ $user['name'] }}</span>
+      </div>
 
       <span class="italic text-gray-500">{{ $user['email'] }}</span>
     </li>
