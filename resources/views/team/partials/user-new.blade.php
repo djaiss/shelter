@@ -27,6 +27,7 @@
       hx-headers='{"X-CSRF-TOKEN": "{{ csrf_token() }}"}'
       hx-target="#user-list"
       @click="show = false"
+      dusk="user-candidate-{{ $user['id'] }}"
       class="flex cursor-pointer items-center border-b border-gray-200 px-3 py-2 hover:bg-slate-50 dark:border-gray-700 dark:bg-slate-900 hover:dark:bg-slate-800">
       <x-avatar :data="$user['avatar']" class="w-5" />
 
