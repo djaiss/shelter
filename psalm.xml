@@ -13,6 +13,7 @@
         <directory name="database/seeders" />
         <ignoreFiles>
             <directory name="vendor" />
+            <directory name="app/Models" />
         </ignoreFiles>
     </projectFiles>
 </psalm>
