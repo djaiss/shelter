@@ -23,7 +23,7 @@ class ManageTeamMemberTest extends TestCase
         $team->users()->attach($user);
 
         $this->actingAs($user)
-            ->get('/teams/'.$team->id)
+            ->get('/teams/' . $team->id)
             ->assertSee('Add a member');
     }
 
@@ -38,7 +38,7 @@ class ManageTeamMemberTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->get('/teams/'.$team->id)
+            ->get('/teams/' . $team->id)
             ->assertDontSee('Add a member');
     }
 }

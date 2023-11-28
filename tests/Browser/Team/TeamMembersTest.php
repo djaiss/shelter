@@ -28,7 +28,7 @@ class TeamMembersTest extends DuskTestCase
                 ->visit('/teams/' . $team->id)
                 ->waitFor('@add-user-cta')
                 ->click('@add-user-cta')
-                ->waitFor('@user-candidate-'.$otherUser->id)
+                ->waitFor('@user-candidate-' . $otherUser->id)
                 ->assertSee('John Doe')
                 ->click('@user-candidate-' . $otherUser->id)
                 ->pause(150)
