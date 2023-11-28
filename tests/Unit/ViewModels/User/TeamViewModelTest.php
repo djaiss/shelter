@@ -54,29 +54,53 @@ class TeamViewModelTest extends TestCase
     {
         $user = User::factory()->create([
             'settings_team_show_actions' => true,
+            'first_name' => 'John',
+            'last_name' => 'Doe',
         ]);
         $team = Team::factory()->create([
             'name' => 'Accounting',
             'is_public' => false,
         ]);
+        $team->users()->attach($user);
         $this->actingAs($user);
 
         $array = TeamViewModel::show($team, true);
 
-        $this->assertCount(7, $array);
+        $this->assertEquals(
+            $team->id,
+            $array['team']['id']
+        );
+        $this->assertEquals(
+            'Accounting',
+            $array['team']['name']
+        );
+        $this->assertFalse(
+            $array['team']['is_public']
+        );
+        $this->assertTrue(
+            $array['team']['is_part_of_team']
+        );
+        $this->assertTrue(
+            $array['team']['show_actions']
+        );
+        $this->assertNull(
+            $array['team']['description']
+        );
         $this->assertEquals(
             [
-                'id' => $team->id,
-                'name' => 'Accounting',
-                'is_public' => false,
-                'is_part_of_team' => true,
-                'show_actions' => true,
-                'description' => null,
-                'url' => [
-                    'toggle_actions' => env('APP_URL') . '/teams/' . $team->id . '/toggleSettings/settings_team_show_actions',
+                0 => [
+                    'id' => $user->id,
+                    'name' => 'John Doe',
+                    'avatar' => $user->avatar,
                 ],
             ],
-            $array
+            $array['team']['users']->toArray()
+        );
+        $this->assertEquals(
+            [
+                'toggle_actions' => env('APP_URL') . '/teams/' . $team->id . '/toggleSettings/settings_team_show_actions',
+            ],
+            $array['team']['url']
         );
     }
 

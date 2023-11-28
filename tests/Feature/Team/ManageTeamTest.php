@@ -74,7 +74,7 @@ class ManageTeamTest extends TestCase
     }
 
     /** @test */
-    public function an_external_user_of_a_team_can_edit_or_delete_a_team(): void
+    public function a_user_of_a_team_can_see_the_edit_or_delete_a_team_options(): void
     {
         $user = User::factory()->create();
         $team = Team::factory()->create([
@@ -98,5 +98,19 @@ class ManageTeamTest extends TestCase
         $this->actingAs($user)
             ->get('/teams/' . $team->id)
             ->assertDontSee('Edit team details');
+    }
+
+    /** @test */
+    public function an_external_user_of_a_team_cant_access_a_private_team(): void
+    {
+        $user = User::factory()->create();
+        $team = Team::factory()->create([
+            'organization_id' => $user->organization_id,
+            'is_public' => false,
+        ]);
+
+        $this->actingAs($user)
+            ->get('/teams/' . $team->id)
+            ->assertStatus(401);
     }
 }
