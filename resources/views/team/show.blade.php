@@ -49,12 +49,14 @@
             <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b dark:border-gray-600 pb-2">
               <h1 class="font-semibold mb-2 sm:mb-0">{{ __('Members') }}</h1>
 
+              @if ($data['team']['is_part_of_team'])
               <x-primary-button
                 hx-get="{{ route('team.member.new', ['team' => $data['team']['id']]) }}"
                 hx-target="#add-user-list"
                 dusk="add-user-cta" class="text-sm">
                 {{ __('Add a member') }}
               </x-primary-button>
+              @endif
             </div>
 
             <div id="add-user-list">
