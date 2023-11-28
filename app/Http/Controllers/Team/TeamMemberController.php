@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Team;
 
 use App\Http\Controllers\Controller;
 use App\Http\ViewModels\Team\TeamMemberViewModel;
-use App\Services\CreateTeam;
-use Illuminate\Http\RedirectResponse;
+use App\Http\ViewModels\Team\TeamViewModel;
+use App\Models\Team;
+use App\Models\User;
+use App\Services\AddUserToTeam;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\View as FacadesView;
 use Illuminate\View\View;
 
 class TeamMemberController extends Controller
@@ -15,27 +19,28 @@ class TeamMemberController extends Controller
     {
         $team = $request->attributes->get('team');
 
-        return view('team.member.new', [
-            'data' => TeamMemberViewModel::new($team),
-        ]);
+        if ($request->header('hx-request')) {
+            return view('team.partials.user-new', [
+                'data' => TeamMemberViewModel::new($team),
+            ]);
+        }
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, Team $team): string
     {
-        $validated = $request->validate([
-            'group-name' => 'required|string|max:255',
-            'visibility' => 'required|boolean',
-        ]);
+        $potentialMember = User::where('organization_id', auth()->user()->organization_id)
+            ->where('id', $request->route()->parameter('member'))
+            ->firstOrFail();
 
-        $team = (new CreateTeam(
-            name: $validated['group-name'],
-            isPublic: $validated['visibility'],
+        $team = (new AddUserToTeam(
+            team: $request->attributes->get('team'),
+            user: $potentialMember,
         ))->execute();
 
-        $request->session()->flash('status', __('The team has been created'));
+        Cache::forget('team-users-' . $team->id);
 
-        return redirect()->route('team.show', [
-            'team' => $team->id,
+        return FacadesView::renderFragment('team.show', 'user-list', [
+            'data' => TeamViewModel::show($team, true),
         ]);
     }
 }

@@ -20,6 +20,12 @@ class TeamMemberViewModel
                 'name' => $user->name,
                 'avatar' => $user->avatar,
                 'email' => $user->email,
+                'url' => [
+                    'store' => route('team.member.store', [
+                        'team' => $team->id,
+                        'member' => $user->id,
+                    ]),
+                ],
             ]);
 
         return [

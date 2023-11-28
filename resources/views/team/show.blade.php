@@ -49,17 +49,23 @@
             <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b dark:border-gray-600 pb-2">
               <h1 class="font-semibold mb-2 sm:mb-0">{{ __('Members') }}</h1>
 
-              <x-primary-link :boost="true" href="{{ route('team.member.new', ['team' => $data['team']['id']]) }}" dusk="add-user-cta" class="text-sm">
+              <x-primary-button
+                hx-get="{{ route('team.member.new', ['team' => $data['team']['id']]) }}"
+                hx-target="#add-user-list"
+                dusk="add-user-cta" class="text-sm">
                 {{ __('Add a member') }}
-              </x-primary-link>
+              </x-primary-button>
+            </div>
+
+            <div id="add-user-list">
             </div>
 
             <!-- list -->
-            @foreach($data['team']['users'] as $user)
-            <div class="text-sm px-2 py-1 first:border-t border-b hover:bg-blue-50 dark:hover:bg-gray-600">
-              {{ $user['name'] }}
+            <div id="user-list">
+              @fragment('user-list')
+              @include('team.partials.user-list')
+              @endfragment
             </div>
-            @endforeach
           </div>
         </div>
       </div>

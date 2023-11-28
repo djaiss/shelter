@@ -53,7 +53,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
         // manage team members
         Route::middleware(['part-of-team'])->group(function (): void {
             Route::get('teams/{team}/members/new', [TeamMemberController::class, 'new'])->name('team.member.new');
-            Route::post('teams/{team}/members', [TeamMemberController::class, 'store'])->name('team.member.store');
+            Route::post('teams/{team}/members/{member}', [TeamMemberController::class, 'store'])->name('team.member.store');
         });
     });
 
