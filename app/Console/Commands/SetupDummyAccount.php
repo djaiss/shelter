@@ -7,10 +7,10 @@ use App\Models\User;
 use App\Services\AddUserToTeam;
 use App\Services\CreateAccount;
 use App\Services\CreateTeam;
-use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 

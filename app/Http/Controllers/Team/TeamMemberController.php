@@ -15,7 +15,7 @@ use Illuminate\View\View;
 
 class TeamMemberController extends Controller
 {
-    public function new(Request $request): View
+    public function new(Request $request): ?View
     {
         $team = $request->attributes->get('team');
 
@@ -24,6 +24,8 @@ class TeamMemberController extends Controller
                 'data' => TeamMemberViewModel::new($team),
             ]);
         }
+
+        return null;
     }
 
     public function store(Request $request, Team $team): string
