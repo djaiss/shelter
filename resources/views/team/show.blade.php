@@ -44,7 +44,7 @@
         <!-- right -->
         <div class="p-0 sm:px-3 sm:py-0">
           <!-- members -->
-          <div>
+          <div hx-target="#user-list" hx-swap="innerHTML" hx-get="{{ route('team.member.index', ['team' => $data['team']['id']]) }}" hx-trigger="loadMembers from:body">
             <!-- title -->
             <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b dark:border-gray-600 pb-2">
               <h1 class="font-semibold mb-2 sm:mb-0">{{ __('Members') }}</h1>
