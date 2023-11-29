@@ -11,8 +11,8 @@ use App\Services\AddUserToTeam;
 use App\Services\RemoveUserFromTeam;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View as FacadesView;
 use Illuminate\View\View;
 
