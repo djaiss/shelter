@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Organization;
 use App\Models\Team;
+use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -34,6 +35,15 @@ class UserTest extends TestCase
         $dwight->teams()->attach($team->id);
 
         $this->assertTrue($dwight->teams()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_topics(): void
+    {
+        $user = User::factory()->create();
+        Topic::factory()->create(['user_id' => $user->id]);
+
+        $this->assertTrue($user->topics()->exists());
     }
 
     /** @test */
