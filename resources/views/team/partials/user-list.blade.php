@@ -1,6 +1,6 @@
 @foreach ($data['team']['users'] as $user)
 <div class="flex justify-between text-sm px-2 py-1 first:border-t-0 border-b hover:bg-blue-50 dark:hover:bg-gray-600">
-  {{ $user['name'] }}
+  <x-link :boost="false" href="{{ $user['url']['show'] }}">{{ $user['name'] }}</x-link>
 
   @if ($data['team']['is_part_of_team'] && $user['can_destroy'])
   <x-htmx-link
