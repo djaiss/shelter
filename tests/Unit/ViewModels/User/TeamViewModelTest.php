@@ -92,6 +92,11 @@ class TeamViewModelTest extends TestCase
                     'id' => $user->id,
                     'name' => 'John Doe',
                     'avatar' => $user->avatar,
+                    'can_destroy' => false,
+                    'url' => [
+                        'show' => env('APP_URL') . '/users/' . $user->id,
+                        'destroy' => env('APP_URL') . '/teams/' . $team->id . '/members/' . $user->id,
+                    ],
                 ],
             ],
             $array['team']['users']->toArray()
