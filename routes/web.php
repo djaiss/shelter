@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\Message\ChannelController;
 use App\Http\Controllers\Message\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Settings\SettingsController;
@@ -62,6 +63,18 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
     // messages
     Route::get('messages', [MessageController::class, 'index'])->name('message.index');
+    Route::get('messages/unread', [MessageController::class, 'index'])->name('message.index');
+    Route::get('messages/favorites', [MessageController::class, 'index'])->name('message.index');
+    Route::get('messages/channels/new', [ChannelController::class, 'new'])->name('channel.new');
+    Route::post('messages/channels', [ChannelController::class, 'store'])->name('channel.store');
+    Route::middleware(['channel'])->group(function (): void {
+        Route::get('messages/channels/{channel}', [MessageController::class, 'index'])->name('channel.show');
+
+        // topics
+        Route::middleware(['topic'])->group(function (): void {
+            Route::get('messages/channels/{channel}/topics/{topic}', [MessageController::class, 'index'])->name('topic.show');
+        });
+    });
 
     // settings
     Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');

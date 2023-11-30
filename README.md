@@ -26,3 +26,10 @@ MIT license.
 - `php artisan icons:cache` to cache all heroicons used
 - `php artisan view:clear` to clear view cache
 - `php artisan view:cache` to cache all views
+
+### List of used caches
+
+- `team-users-{team-id}`
+  - list of users in a team
+- `channels-{user-id}`
+  - list of channels for the user (used in the messages sidebar)

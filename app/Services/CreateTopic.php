@@ -25,6 +25,7 @@ class CreateTopic extends BaseService
     {
         $this->topic = Topic::create([
             'organization_id' => auth()->user()->organization_id,
+            'user_id' => auth()->user()->id,
             'title' => $this->title,
             'content' => $this->content,
         ]);

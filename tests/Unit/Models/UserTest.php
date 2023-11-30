@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Channel;
 use App\Models\Organization;
 use App\Models\Team;
 use App\Models\Topic;
@@ -44,6 +45,16 @@ class UserTest extends TestCase
         Topic::factory()->create(['user_id' => $user->id]);
 
         $this->assertTrue($user->topics()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_channels(): void
+    {
+        $user = User::factory()->create();
+        $channel = Channel::factory()->create();
+        $channel->users()->attach($user->id);
+
+        $this->assertTrue($user->channels()->exists());
     }
 
     /** @test */

@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('topics', function (Blueprint $table): void {
+        Schema::create('channels', function (Blueprint $table): void {
             $table->id();
             $table->unsignedBigInteger('organization_id');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('channel_id')->nullable();
-            $table->string('title');
-            $table->string('content')->nullable();
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->boolean('is_public')->default(true);
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('channel_id')->references('id')->on('channels')->onDelete('set null');
         });
     }
 };

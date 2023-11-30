@@ -31,6 +31,7 @@ class CreateTopicTest extends TestCase
         $this->assertDatabaseHas('topics', [
             'id' => $topic->id,
             'organization_id' => $user->organization_id,
+            'user_id' => $user->id,
             'title' => 'My first topic',
             'content' => 'This is my first topic',
         ]);
