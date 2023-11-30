@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\Message\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Settings\SettingsController;
 use App\Http\Controllers\Settings\SettingsLevelController;
@@ -58,6 +59,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
             Route::delete('teams/{team}/members/{member}', [TeamMemberController::class, 'destroy'])->name('team.member.destroy');
         });
     });
+
+    // messages
+    Route::get('messages', [MessageController::class, 'index'])->name('message.index');
 
     // settings
     Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');

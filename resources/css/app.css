@@ -6,12 +6,20 @@
   display: none !important;
 }
 
+.message-grid {
+  grid-template-columns: 200px 1fr;
+}
+
 .team-grid {
   grid-template-columns: 300px 1fr;
 }
 
 @media (max-width: 480px) {
   .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .message-grid {
     grid-template-columns: 1fr;
   }
 }
