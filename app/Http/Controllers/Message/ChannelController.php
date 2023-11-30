@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Message;
 
 use App\Http\Controllers\Controller;
-use App\Http\ViewModels\Message\UserChannelViewModel;
 use App\Services\CreateChannel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

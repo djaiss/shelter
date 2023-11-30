@@ -4,7 +4,6 @@ namespace App\Http\ViewModels\Message;
 
 use App\Models\Channel;
 use App\Models\User;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
 class UserChannelViewModel

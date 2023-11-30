@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * A role is someone's job, like "developer" or "financial analyst".
- *
-*/
+ */
 class Role extends Model
 {
     use HasFactory, Translatable;
