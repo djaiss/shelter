@@ -51,6 +51,7 @@ class SetupDummyAccount extends Command
         $this->createFirstUser();
         $this->createOtherUsers();
         $this->addTeams();
+        $this->createAnotherAccount();
 
         $this->stop();
     }
@@ -177,6 +178,21 @@ class SetupDummyAccount extends Command
                 team: $team,
                 user: $user,
             ))->execute());
+    }
+
+    private function createAnotherAccount(): void
+    {
+        $this->info('☐ Create another account');
+
+        $this->user = (new CreateAccount(
+            email: 'blank@blank.com',
+            password: 'blank123',
+            firstName: 'Dwight',
+            lastName: 'Schrute',
+            organizationName: 'Shelter',
+        ))->execute();
+        $this->user->email_verified_at = Carbon::now();
+        $this->user->save();
     }
 
     private function artisan(string $message, string $command, array $arguments = []): void
