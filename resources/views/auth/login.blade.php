@@ -9,6 +9,13 @@
     <h3 class="text-center text-sm text-gray-700">{{ __('It\'s great to have you back!') }}</h3>
   </div>
 
+  @env('local')
+  <div class="space-y-2">
+      <x-login-link email="admin@admin.com" label="Login in account 1"/>
+      <x-login-link email="blank@blank.com" label="Login in account 2"/>
+  </div>
+  @endenv
+
   <!-- Session Status -->
   <x-session-status class="mb-4" :status="session('status')" />
 
