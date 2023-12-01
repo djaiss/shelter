@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Jobs\RecordTopicView;
 use App\Models\Topic;
 use Closure;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -23,6 +24,11 @@ class CheckTopic
                 ->findOrFail($request->route()->parameter('topic'));
 
             $request->attributes->add(['topic' => $topic]);
+
+            RecordTopicView::dispatch(
+                channelId: $request->attributes->get('channel')->id,
+                topicId: $topic->id,
+            );
 
             return $next($request);
         } catch (ModelNotFoundException) {

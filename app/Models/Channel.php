@@ -21,11 +21,13 @@ class Channel extends Model
         'description',
         'is_public',
         'topics_count',
+        'topic_views_count',
     ];
 
     protected $casts = [
         'is_public' => 'boolean',
         'topics_count' => 'integer',
+        'topic_views_count' => 'integer',
     ];
 
     public function organization(): BelongsTo

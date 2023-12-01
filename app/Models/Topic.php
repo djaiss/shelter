@@ -18,6 +18,11 @@ class Topic extends Model
         'channel_id',
         'title',
         'content',
+        'views_count',
+    ];
+
+    protected $casts = [
+        'views_count' => 'integer',
     ];
 
     public function organization(): BelongsTo
