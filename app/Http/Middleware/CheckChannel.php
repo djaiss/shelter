@@ -23,8 +23,7 @@ class CheckChannel
 
             $isPartOfChannel = $channel->users->contains(auth()->user()->id);
 
-            if (! $channel->is_public && !$isPartOfChannel) {
-
+            if (! $channel->is_public && ! $isPartOfChannel) {
                 abort(401);
             }
 

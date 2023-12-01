@@ -28,7 +28,7 @@ class TopicTest extends DuskTestCase
                 ->type('title', 'Awesome title of a post')
                 ->type('content', 'A basic content')
                 ->click('@submit-form-button')
-                ->assertPathIs('/messages/channels/' . $channel->id.'/topics/'. Topic::latest()->first()->id)
+                ->assertPathIs('/messages/channels/' . $channel->id . '/topics/' . Topic::latest()->first()->id)
                 ->assertSee('Awesome title of a post');
         });
     }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Message;
 
 use App\Http\Controllers\Controller;
-use App\Http\ViewModels\Message\MessageLayoutViewModel;
 use App\Http\ViewModels\Message\TopicViewModel;
 use App\Services\CreateTopic;
 use Illuminate\Http\RedirectResponse;
