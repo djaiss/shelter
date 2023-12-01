@@ -4,9 +4,7 @@ namespace Tests\Unit\Jobs;
 
 use App\Jobs\RecordTopicView;
 use App\Models\Channel;
-use App\Models\Project;
 use App\Models\Topic;
-use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
