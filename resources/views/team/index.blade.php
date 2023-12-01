@@ -58,7 +58,9 @@
               </tbody>
             </table>
         </div>
+
         @else
+
         <div class="flex flex-col items-center justify-center p-6">
           <div class="rounded-full bg-green-50 border border-green-500 dark:bg-gray-800 dark:border-gray-400 p-2 mb-3">
             <x-heroicon-o-users class="w-4 h-4 text-green-500 dark:text-gray-400" />
@@ -68,6 +70,7 @@
           </p>
           <p class="text-center">{{ __('A team brings together people who share a common purpose.') }}</p>
         </div>
+
         @endif
       </div>
     </div>

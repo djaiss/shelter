@@ -27,9 +27,11 @@ MIT license.
 - `php artisan view:clear` to clear view cache
 - `php artisan view:cache` to cache all views
 
-### List of used caches
+### List of caches used in the app
 
 - `team-users-{team-id}`
   - list of users in a team
-- `channels-{user-id}`
+- `user-channels-{user-id}`
   - list of channels for the user (used in the messages sidebar)
+- `channel-{channel-id}-user-{user-id}`
+  - profile page of a channel for the given user, listing all topics

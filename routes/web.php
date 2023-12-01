@@ -3,6 +3,7 @@
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\Message\ChannelController;
 use App\Http\Controllers\Message\MessageController;
+use App\Http\Controllers\Message\TopicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Settings\SettingsController;
 use App\Http\Controllers\Settings\SettingsLevelController;
@@ -63,16 +64,18 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
     // messages
     Route::get('messages', [MessageController::class, 'index'])->name('message.index');
-    Route::get('messages/unread', [MessageController::class, 'index'])->name('message.index');
-    Route::get('messages/favorites', [MessageController::class, 'index'])->name('message.index');
+    Route::get('messages/unread', [MessageController::class, 'index'])->name('message.unread.index');
+    Route::get('messages/favorites', [MessageController::class, 'index'])->name('message.favorites.index');
     Route::get('messages/channels/new', [ChannelController::class, 'new'])->name('channel.new');
     Route::post('messages/channels', [ChannelController::class, 'store'])->name('channel.store');
     Route::middleware(['channel'])->group(function (): void {
-        Route::get('messages/channels/{channel}', [MessageController::class, 'index'])->name('channel.show');
+        Route::get('messages/channels/{channel}', [ChannelController::class, 'show'])->name('channel.show');
+        Route::get('messages/channels/{channel}/topics/new', [TopicController::class, 'new'])->name('topic.new');
+        Route::post('messages/channels/{channel}/topics', [TopicController::class, 'store'])->name('topic.store');
 
         // topics
         Route::middleware(['topic'])->group(function (): void {
-            Route::get('messages/channels/{channel}/topics/{topic}', [MessageController::class, 'index'])->name('topic.show');
+            Route::get('messages/channels/{channel}/topics/{topic}', [TopicController::class, 'show'])->name('topic.show');
         });
     });
 

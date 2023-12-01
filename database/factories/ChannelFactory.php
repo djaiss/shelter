@@ -23,6 +23,7 @@ class ChannelFactory extends Factory
             'user_id' => User::factory(),
             'name' => fake()->name,
             'description' => fake()->text,
+            'is_public' => fake()->boolean,
         ];
     }
 }

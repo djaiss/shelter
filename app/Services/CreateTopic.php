@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Channel;
 use App\Models\Topic;
 
 class CreateTopic extends BaseService
@@ -9,6 +10,7 @@ class CreateTopic extends BaseService
     private Topic $topic;
 
     public function __construct(
+        public Channel $channel,
         public string $title,
         public ?string $content,
     ) {
@@ -26,6 +28,7 @@ class CreateTopic extends BaseService
         $this->topic = Topic::create([
             'organization_id' => auth()->user()->organization_id,
             'user_id' => auth()->user()->id,
+            'channel_id' => $this->channel->id,
             'title' => $this->title,
             'content' => $this->content,
         ]);

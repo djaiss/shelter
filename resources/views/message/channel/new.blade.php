@@ -20,17 +20,17 @@
 
           <!-- name -->
           <div class="relative pt-4 pb-2">
-            <x-input-label for="name"
+            <x-input-label for="channel-name"
                           :value="__('What is the name of the channel?')" />
 
             <x-text-input class="mt-1 block w-full"
-                          id="name"
-                          name="name"
+                          id="channel-name"
+                          name="channel-name"
                           type="text"
                           required
                           autofocus />
 
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <x-input-error class="mt-2" :messages="$errors->get('channel-name')" />
           </div>
 
           <!-- description -->
@@ -43,6 +43,8 @@
                       id="description"
                       name="description"
                       type="text">{{ old('description') }}</x-textarea>
+
+            <x-input-error class="mt-2" :messages="$errors->get('description')" />
           </div>
 
           <!-- is public -->

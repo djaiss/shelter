@@ -6,17 +6,15 @@ use App\Models\Channel;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 
-class UserChannelViewModel
+class MessageLayoutViewModel
 {
     /**
      * List of channels for the current user.
      * This is displayed in the left sidebar.
-     *
-     * @return mixed
      */
-    public static function index(): mixed
+    public static function index(): array
     {
-        $channels = Cache::remember('channels-' . auth()->user()->id, 3600, function () {
+        $channels = Cache::remember('user-channels-' . auth()->user()->id, 3600, function () {
             return auth()->user()
                 ->channels()
                 ->select('channels.id', 'name', 'is_public')
@@ -33,6 +31,8 @@ class UserChannelViewModel
                 ]);
         });
 
-        return $channels;
+        return [
+            'channels' => $channels,
+        ];
     }
 }

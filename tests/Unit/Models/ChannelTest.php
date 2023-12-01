@@ -3,6 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Channel;
+use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -33,5 +34,14 @@ class ChannelTest extends TestCase
         $user->channels()->attach($channel->id);
 
         $this->assertTrue($channel->users()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_topics(): void
+    {
+        $channel = Channel::factory()->create();
+        Topic::factory()->create(['channel_id' => $channel->id]);
+
+        $this->assertTrue($channel->topics()->exists());
     }
 }
