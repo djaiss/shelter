@@ -19,6 +19,7 @@ class CreateTopic extends BaseService
     public function execute(): Topic
     {
         $this->create();
+        $this->incrementTopicsCount();
 
         return $this->topic;
     }
@@ -32,5 +33,10 @@ class CreateTopic extends BaseService
             'title' => $this->title,
             'content' => $this->content,
         ]);
+    }
+
+    private function incrementTopicsCount(): void
+    {
+        $this->channel->increment('topics_count');
     }
 }
