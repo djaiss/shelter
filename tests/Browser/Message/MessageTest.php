@@ -3,7 +3,6 @@
 namespace Tests\Browser\Message;
 
 use App\Models\Channel;
-use App\Models\Team;
 use App\Models\User;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -35,7 +34,7 @@ class MessageTest extends DuskTestCase
         ]);
         $user->channels()->attach($channel);
 
-        $this->browse(function (Browser $browser) use ($user, $channel): void {
+        $this->browse(function (Browser $browser) use ($user): void {
             $browser->loginAs($user)
                 ->visit('/messages')
                 ->assertSee('Accounting')
@@ -60,7 +59,7 @@ class MessageTest extends DuskTestCase
                 ->type('description', 'Accounting team')
                 ->radio('visibility', '1')
                 ->click('@submit-form-button')
-                ->assertPathIs('/messages/channels/'.Channel::latest()->first()->id)
+                ->assertPathIs('/messages/channels/' . Channel::latest()->first()->id)
                 ->assertSee('Accounting');
         });
     }
