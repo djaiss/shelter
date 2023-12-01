@@ -19,6 +19,7 @@ class CheckTopic
     {
         try {
             $topic = Topic::where('channel_id', $request->attributes->get('channel')->id)
+                ->with('user')
                 ->findOrFail($request->route()->parameter('topic'));
 
             $request->attributes->add(['topic' => $topic]);

@@ -50,12 +50,10 @@ class TopicController extends Controller
     public function show(Request $request): View
     {
         $channel = $request->attributes->get('channel');
+        $topic = $request->attributes->get('topic');
 
-        return view('message.channel.show', [
-            'data' => [
-                'layout' => MessageLayoutViewModel::index(),
-                'channel' => $channel,
-            ],
+        return view('message.topic.show', [
+            'data' => TopicViewModel::show($channel, $topic),
         ]);
     }
 }
