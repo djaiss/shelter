@@ -51,11 +51,12 @@ class ManageTopicTest extends TestCase
     }
 
     /** @test */
-    public function a_user_cant_see_a_topic_if_he_is_part_of_the_channel(): void
+    public function a_user_cant_see_a_topic_if_he_is_not_part_of_the_channel(): void
     {
         $user = User::factory()->create();
         $channel = Channel::factory()->create([
             'organization_id' => $user->organization_id,
+            'is_public' => false,
         ]);
         $topic = Topic::factory()->create([
             'channel_id' => $channel->id,
