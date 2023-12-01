@@ -45,6 +45,39 @@ class ManageChannelTest extends TestCase
     }
 
     /** @test */
+    public function a_user_can_see_a_private_channel_if_it_belongs_to_it(): void
+    {
+        $channel = Channel::factory()->create([
+            'name' => 'Accounting',
+            'is_public' => false,
+        ]);
+        $user = User::factory()->create([
+            'organization_id' => $channel->organization_id,
+        ]);
+        $user->channels()->attach($channel);
+
+        $this->actingAs($user)
+            ->get('/messages/channels/' . $channel->id)
+            ->assertStatus(200);
+    }
+
+    /** @test */
+    public function a_user_cant_see_any_channel_if_it_doesnt_belong_to_it(): void
+    {
+        $channel = Channel::factory()->create([
+            'name' => 'Accounting',
+            'is_public' => false,
+        ]);
+        $user = User::factory()->create([
+            'organization_id' => $channel->organization_id,
+        ]);
+
+        $this->actingAs($user)
+            ->get('/messages/channels/' . $channel->id)
+            ->assertStatus(401);
+    }
+
+    /** @test */
     public function a_user_can_create_a_channel(): void
     {
         $user = User::factory()->create();

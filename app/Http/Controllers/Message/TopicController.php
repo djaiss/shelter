@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Message;
 
 use App\Http\Controllers\Controller;
-use App\Http\ViewModels\Message\MessageLayoutViewModel;
 use App\Http\ViewModels\Message\TopicViewModel;
 use App\Services\CreateTopic;
 use Illuminate\Http\RedirectResponse;
@@ -50,12 +49,10 @@ class TopicController extends Controller
     public function show(Request $request): View
     {
         $channel = $request->attributes->get('channel');
+        $topic = $request->attributes->get('topic');
 
-        return view('message.channel.show', [
-            'data' => [
-                'layout' => MessageLayoutViewModel::index(),
-                'channel' => $channel,
-            ],
+        return view('message.topic.show', [
+            'data' => TopicViewModel::show($channel, $topic),
         ]);
     }
 }

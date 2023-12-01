@@ -13,7 +13,7 @@
           <!-- channel title -->
           <div class="flex justify-between items-center mb-4">
             <h1 class="text-2xl">{{ $data['channel']['name'] }}</h1>
-            <x-primary-link href="{{ $data['channel']['url']['new'] }}" class="text-sm">
+            <x-primary-link dusk="add-topic-cta" href="{{ $data['channel']['url']['new'] }}" class="text-sm">
               {{ __('New topic') }}
             </x-primary-link>
           </div>
@@ -32,7 +32,7 @@
               <x-avatar :data="$topic['user']['avatar']" class="w-6 h-6 sm:w-12 sm:h-12 rounded-full mr-3" />
               <div>
                 <div>
-                  <h2 class="font-bold mr-2">{{ $topic['title'] }}</h2>
+                  <x-link href="{{ $topic['url']['show'] }}" class="mr-2">{{ $topic['title'] }}</x-link>
                   <p class="block sm:hidden text-sm my-1">{{ $topic['created_at'] }}</p>
                 </div>
                 <p class="text-sm">{{ $topic['content'] }}</p>

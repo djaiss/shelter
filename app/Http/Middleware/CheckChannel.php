@@ -21,6 +21,12 @@ class CheckChannel
             $channel = Channel::where('organization_id', auth()->user()->organization_id)
                 ->findOrFail($request->route()->parameter('channel'));
 
+            $isPartOfChannel = $channel->users->contains(auth()->user()->id);
+
+            if (! $channel->is_public && ! $isPartOfChannel) {
+                abort(401);
+            }
+
             $request->attributes->add(['channel' => $channel]);
 
             return $next($request);
