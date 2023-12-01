@@ -48,6 +48,7 @@ class SetupDummyAccount extends Command
 
         $this->start();
         $this->wipeAndMigrateDB();
+        $this->clearCache();
         $this->createFirstUser();
         $this->createOtherUsers();
         $this->addTeams();
@@ -73,6 +74,11 @@ class SetupDummyAccount extends Command
         } else {
             $this->artisan('☐ Migration of the database', 'migrate:fresh', ['--force' => true]);
         }
+    }
+
+    private function clearCache(): void
+    {
+        $this->artisan('☐ Clear cache', 'cache:clear');
     }
 
     private function stop(): void

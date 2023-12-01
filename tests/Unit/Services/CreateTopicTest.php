@@ -41,5 +41,10 @@ class CreateTopicTest extends TestCase
             'title' => 'My first topic',
             'content' => 'This is my first topic',
         ]);
+
+        $this->assertDatabaseHas('channels', [
+            'id' => $channel->id,
+            'topics_count' => 1,
+        ]);
     }
 }

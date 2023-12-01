@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Team;
+namespace Tests\Feature\Message;
 
 use App\Models\Channel;
 use App\Models\Topic;
