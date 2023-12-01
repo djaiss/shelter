@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->boolean('is_public')->default(true);
             $table->integer('topics_count')->default(0);
+            $table->integer('topic_views_count')->default(0);
             $table->timestamps();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
