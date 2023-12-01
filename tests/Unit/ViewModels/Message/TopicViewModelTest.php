@@ -83,7 +83,7 @@ class TopicViewModelTest extends TestCase
         );
         $this->assertEquals(
             [
-                'id' => $channel->id,
+                'id' => $topic->id,
                 'title' => 'Should we fire Henry?',
                 'content' => 'He is a nuisance',
                 'user' => [
