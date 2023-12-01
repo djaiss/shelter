@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Channel;
 use App\Models\Level;
 use App\Models\Organization;
 use App\Models\Role;
@@ -49,6 +50,15 @@ class OrganizationTest extends TestCase
         User::factory()->create(['organization_id' => $organization->id]);
 
         $this->assertTrue($organization->users()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_channels(): void
+    {
+        $organization = Organization::factory()->create();
+        Channel::factory()->create(['organization_id' => $organization->id]);
+
+        $this->assertTrue($organization->channels()->exists());
     }
 
     /** @test */

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\ViewModels\User;
+namespace Tests\Unit\ViewModels\Team;
 
 use App\Http\ViewModels\Team\TeamViewModel;
 use App\Models\Team;

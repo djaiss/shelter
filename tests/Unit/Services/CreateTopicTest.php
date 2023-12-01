@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Services;
 
+use App\Models\Channel;
 use App\Models\Topic;
 use App\Models\User;
 use App\Services\CreateTopic;
@@ -16,9 +17,13 @@ class CreateTopicTest extends TestCase
     public function it_creates_a_topic(): void
     {
         $user = User::factory()->create();
+        $channel = Channel::factory()->create([
+            'organization_id' => $user->organization_id,
+        ]);
         $this->actingAs($user);
 
         $topic = (new CreateTopic(
+            channel: $channel,
             title: 'My first topic',
             content: 'This is my first topic',
         ))->execute();
@@ -31,6 +36,8 @@ class CreateTopicTest extends TestCase
         $this->assertDatabaseHas('topics', [
             'id' => $topic->id,
             'organization_id' => $user->organization_id,
+            'channel_id' => $channel->id,
+            'user_id' => $user->id,
             'title' => 'My first topic',
             'content' => 'This is my first topic',
         ]);

@@ -69,5 +69,7 @@ class Kernel extends HttpKernel
         'user' => \App\Http\Middleware\CheckUser::class,
         'team' => \App\Http\Middleware\CheckTeam::class,
         'part-of-team' => \App\Http\Middleware\CheckPartOfTeam::class,
+        'channel' => \App\Http\Middleware\CheckChannel::class,
+        'topic' => \App\Http\Middleware\CheckTopic::class,
     ];
 }
