@@ -29,7 +29,7 @@ class MessageLayoutViewModelTest extends TestCase
         $this->assertEquals(
             [
                 0 => [
-                    'id' => $user->id,
+                    'id' => $channel->id,
                     'name' => 'Accounting',
                     'is_public' => true,
                     'url' => [
