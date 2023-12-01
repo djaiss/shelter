@@ -29,7 +29,7 @@ class RecordTopicViewTest extends TestCase
 
         $this->assertDatabaseHas('channels', [
             'id' => $topic->id,
-            'views_count' => 1,
+            'topic_views_count' => 1,
         ]);
     }
 }
