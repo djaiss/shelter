@@ -51,13 +51,13 @@ class ManageChannelTest extends TestCase
 
         $this->actingAs($user)
             ->post('/messages/channels', [
-                'name' => 'Accounting',
+                'channel-name' => 'Accounting',
                 'description' => 'Accounting channel',
                 'visibility' => true,
             ])
             ->assertStatus(302)
             ->assertRedirectToRoute('channel.show', [
-                'channel' => Channel::first()->id,
+                'channel' => Channel::latest()->first()->id,
             ]);
     }
 }
