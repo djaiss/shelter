@@ -50,13 +50,20 @@
 
                 <x-textarea id="content"
                           name="content"
-                          class="min-h-[300px] mt-2 block w-full"
+                          :height="'min-h-[300px]'"
+                          class="mt-2 block w-full"
                           type="text">{{ old('content') }}</x-textarea>
 
                 <x-input-error class="mt-2" :messages="$errors->get('content')" />
               </div>
             </div>
+
+            <!-- summary -->
+            <div class="w-full">
+              The topic will be posted in
+            </div>
           </div>
+
 
           <!-- actions -->
           <div class="flex items-center justify-between border-t dark:border-gray-600 py-4">

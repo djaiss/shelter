@@ -34,7 +34,7 @@ class TeamViewModel
 
     public static function show(Team $team, bool $isPartOfTeam): array
     {
-        $users = Cache::remember('team-users-' . $team->id, 3600, function () use ($team) {
+        $users = Cache::remember('team:'. $team->id.':users', 604800, function () use ($team) {
             return TeamMemberViewModel::index($team);
         });
 

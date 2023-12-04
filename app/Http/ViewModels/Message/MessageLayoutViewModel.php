@@ -14,7 +14,7 @@ class MessageLayoutViewModel
      */
     public static function index(): array
     {
-        $channels = Cache::remember('user-channels-' . auth()->user()->id, 3600, function () {
+        $channels = Cache::remember('user:'. auth()->user()->id.':channels', 604800, function () {
             return auth()->user()
                 ->channels()
                 ->select('channels.id', 'name', 'is_public')

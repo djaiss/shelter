@@ -85,6 +85,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Topic::class);
     }
 
+    public function topicNotifications(): HasMany
+    {
+        return $this->hasMany(TopicNotification::class);
+    }
+
     /**
      * Get the name of the user.
      *

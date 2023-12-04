@@ -29,9 +29,12 @@ MIT license.
 
 ### List of caches used in the app
 
-- `team-users-{team-id}`
+- `team:{team-id}:users`
   - list of users in a team
-- `user-channels-{user-id}`
-  - list of channels for the user (used in the messages sidebar)
-- `channel-{channel-id}-user-{user-id}`
-  - profile page of a channel for the given user, listing all topics
+  - default time: 1 week
+- `user:{user-id}:channels`
+  - all the channels the user is in
+  - default time: 1 week
+- `user:{user-id}:channel:{channel-id}:topics`
+  - all topics in a channel for the user
+  - default time: 1 week
