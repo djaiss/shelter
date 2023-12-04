@@ -34,7 +34,7 @@ class ChannelController extends Controller
 
         $request->session()->flash('status', __('The channel has been created'));
 
-        Cache::forget('user:'. auth()->user()->id.':channels');
+        Cache::forget('user:' . auth()->user()->id . ':channels');
 
         return redirect()->route('channel.show', [
             'channel' => $channel->id,

@@ -11,7 +11,7 @@ class ChannelViewModel
 {
     public static function show(Channel $channel): array
     {
-        $topics = Cache::remember('user:'.auth()->user()->id.':channel:'. $channel->id.':topics', 604800, function () use ($channel) {
+        $topics = Cache::remember('user:' . auth()->user()->id . ':channel:' . $channel->id . ':topics', 604800, function () use ($channel) {
             return $channel->topics()
                 ->with('user')
                 ->orderBy('created_at', 'desc')

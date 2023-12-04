@@ -38,7 +38,7 @@ class TopicController extends Controller
 
         $request->session()->flash('status', __('The topic has been created'));
 
-        Cache::forget('user:'. auth()->user()->id.':channel:' . $channel->id . ':topics');
+        Cache::forget('user:' . auth()->user()->id . ':channel:' . $channel->id . ':topics');
 
         return redirect()->route('topic.show', [
             'channel' => $channel->id,
