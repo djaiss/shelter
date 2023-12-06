@@ -17,6 +17,11 @@ class TopicViewModelTest extends TestCase
     public function it_gets_the_data_needed_for_creating_a_topic(): void
     {
         $user = User::factory()->create();
+        $otherUser = User::factory()->create([
+            'organization_id' => $user->organization_id,
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+        ]);
         $channel = Channel::factory()->create([
             'organization_id' => $user->organization_id,
             'name' => 'Accounting',
@@ -24,20 +29,38 @@ class TopicViewModelTest extends TestCase
             'is_public' => true,
         ]);
         $user->channels()->attach($channel);
+        $otherUser->channels()->attach($channel);
         $this->actingAs($user);
 
         $array = TopicViewModel::new($channel);
 
         $this->assertEquals(
+            $channel->id,
+            $array['channel']['id']
+        );
+        $this->assertEquals(
+            'Accounting',
+            $array['channel']['name']
+        );
+        $this->assertEquals(
             [
-                'id' => $channel->id,
-                'name' => 'Accounting',
-                'url' => [
-                    'show' => env('APP_URL') . '/messages/channels/' . $channel->id,
-                    'store' => env('APP_URL') . '/messages/channels/' . $channel->id . '/topics',
+                'show' => env('APP_URL') . '/channels/' . $channel->id,
+                'store' => env('APP_URL') . '/channels/' . $channel->id . '/topics',
+            ],
+            $array['channel']['url']
+        );
+        $this->assertEquals(
+            [
+                1 => [
+                    'id' => $otherUser->id,
+                    'name' => 'John Doe',
+                    'avatar' => $otherUser->avatar,
+                    'url' => [
+                        'show' => env('APP_URL') . '/users/' . $otherUser->id,
+                    ],
                 ],
             ],
-            $array['channel']
+            $array['channel']['users']->toArray()
         );
         $this->assertEquals(
             [
@@ -76,7 +99,7 @@ class TopicViewModelTest extends TestCase
                 'id' => $channel->id,
                 'name' => 'Accounting',
                 'url' => [
-                    'show' => env('APP_URL') . '/messages/channels/' . $channel->id,
+                    'show' => env('APP_URL') . '/channels/' . $channel->id,
                 ],
             ],
             $array['channel']

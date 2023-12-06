@@ -9,7 +9,7 @@ class UpdateChannel extends BaseService
     public function __construct(
         public Channel $channel,
         public string $name,
-        public string $description,
+        public ?string $description,
         public bool $isPublic = true,
     ) {
     }

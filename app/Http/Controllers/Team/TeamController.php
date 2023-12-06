@@ -8,7 +8,6 @@ use App\Models\Team;
 use App\Services\CreateTeam;
 use App\Services\DestroyTeam;
 use App\Services\UpdateTeam;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -91,10 +90,6 @@ class TeamController extends Controller
 
     public function destroy(Request $request, Team $team): Response
     {
-        if (! $team->is_public && ! $team->users->contains(auth()->user()->id)) {
-            throw new ModelNotFoundException;
-        }
-
         (new DestroyTeam(
             team: $team,
         ))->execute();

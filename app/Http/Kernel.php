@@ -71,5 +71,6 @@ class Kernel extends HttpKernel
         'part-of-team' => \App\Http\Middleware\CheckPartOfTeam::class,
         'channel' => \App\Http\Middleware\CheckChannel::class,
         'topic' => \App\Http\Middleware\CheckTopic::class,
+        'part-of-channel' => \App\Http\Middleware\CheckPartOfChannel::class,
     ];
 }

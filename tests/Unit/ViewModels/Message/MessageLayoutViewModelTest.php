@@ -33,7 +33,7 @@ class MessageLayoutViewModelTest extends TestCase
                     'name' => 'Accounting',
                     'is_public' => true,
                     'url' => [
-                        'show' => env('APP_URL') . '/messages/channels/' . $channel->id,
+                        'show' => env('APP_URL') . '/channels/' . $channel->id,
                     ],
                 ],
             ],

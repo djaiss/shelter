@@ -48,8 +48,6 @@ class CreateTopic extends BaseService
      * - all the users in the channel (except the current user)
      * - specific users (who should not be in the channel)
      * - no one specifically.
-     *
-     * @return void
      */
     private function notifyUsers(): void
     {

@@ -22,7 +22,7 @@
 
   <ul>
     @forelse ($data['layout']['channels'] as $channel)
-    <li class="flex items-center hover:bg-blue-50 dark:hover:bg-gray-600 hover:border-l-blue-300 hover:border-l-2 border border-l-2 border-transparent px-2 py-1 rounded-sm">
+    <li class="{{ request()->is('channels/'.$channel['id']) ? 'bg-blue-50 dark:bg-gray-600 border-l-blue-300 border-l-2' : '' }} flex items-center hover:bg-blue-50 dark:hover:bg-gray-600 hover:border-l-blue-300 hover:border-l-2 border border-l-2 border-transparent px-2 py-1 rounded-sm">
       <x-heroicon-o-hashtag class="w-3 h-3 text-gray-500 mr-1" />
       <x-link href="{{ $channel['url']['show'] }}">{{ $channel['name'] }}</x-link>
 

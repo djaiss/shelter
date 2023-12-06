@@ -45,11 +45,12 @@ class MessageTest extends DuskTestCase
     }
 
     /** @test */
-    public function a_user_can_create_a_public_channel(): void
+    public function a_user_can_crud_a_public_channel(): void
     {
         $user = User::factory()->create();
 
         $this->browse(function (Browser $browser) use ($user): void {
+            // channel creation
             $browser->loginAs($user)
                 ->visit('/messages')
                 ->waitFor('@add-channel-cta')
@@ -59,8 +60,30 @@ class MessageTest extends DuskTestCase
                 ->type('description', 'Accounting team')
                 ->radio('visibility', '1')
                 ->click('@submit-form-button')
-                ->assertPathIs('/messages/channels/' . Channel::latest()->first()->id)
+                ->assertPathIs('/channels/' . Channel::latest()->first()->id)
                 ->assertSee('Accounting');
+
+            // channel edition
+            $browser->click('@channel-menu-options')
+                ->click('@edit-channel-link')
+                ->waitFor('@edit-form-button')
+                ->type('channel-name', 'Accounting team')
+                ->radio('visibility', '0')
+                ->type('description', 'This is the accounting team')
+                ->waitFor('@edit-form-button')
+                ->click('@edit-form-button')
+                ->assertPathIs('/channels/' . Channel::latest()->first()->id . '/edit')
+                ->assertSee('Accounting team');
+
+            // channel deletion
+            $browser->visit('/channels/' . Channel::latest()->first()->id)
+                ->click('@channel-menu-options')
+                ->click('@delete-channel-link')
+                ->click('@destroy-form-button')
+                ->acceptDialog()
+                ->pause(150)
+                ->assertPathIs('/messages')
+                ->assertDontSee('Accounting team');
         });
     }
 }

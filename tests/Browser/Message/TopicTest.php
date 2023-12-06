@@ -21,14 +21,14 @@ class TopicTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user, $channel): void {
             $browser->loginAs($user)
-                ->visit('/messages/channels/' . $channel->id)
+                ->visit('/channels/' . $channel->id)
                 ->waitFor('@add-topic-cta')
                 ->click('@add-topic-cta')
                 ->waitFor('@submit-form-button')
                 ->type('title', 'Awesome title of a post')
                 ->type('content', 'A basic content')
                 ->click('@submit-form-button')
-                ->assertPathIs('/messages/channels/' . $channel->id . '/topics/' . Topic::latest()->first()->id)
+                ->assertPathIs('/channels/' . $channel->id . '/topics/' . Topic::latest()->first()->id)
                 ->assertSee('Awesome title of a post');
         });
     }

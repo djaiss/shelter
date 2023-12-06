@@ -22,7 +22,7 @@ class ManageTopicTest extends TestCase
         $user->channels()->attach($channel);
 
         $this->actingAs($user)
-            ->post('/messages/channels/' . $channel->id . '/topics', [
+            ->post('/channels/' . $channel->id . '/topics', [
                 'title' => 'Accounting',
                 'content' => 'Accounting channel',
             ])
@@ -46,7 +46,7 @@ class ManageTopicTest extends TestCase
         $user->channels()->attach($channel);
 
         $this->actingAs($user)
-            ->get('/messages/channels/' . $channel->id . '/topics/' . $topic->id)
+            ->get('/channels/' . $channel->id . '/topics/' . $topic->id)
             ->assertStatus(200);
     }
 
@@ -63,7 +63,7 @@ class ManageTopicTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->get('/messages/channels/' . $channel->id . '/topics/' . $topic->id)
+            ->get('/channels/' . $channel->id . '/topics/' . $topic->id)
             ->assertStatus(401);
     }
 }

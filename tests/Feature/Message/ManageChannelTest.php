@@ -57,7 +57,7 @@ class ManageChannelTest extends TestCase
         $user->channels()->attach($channel);
 
         $this->actingAs($user)
-            ->get('/messages/channels/' . $channel->id)
+            ->get('/channels/' . $channel->id)
             ->assertStatus(200);
     }
 
@@ -73,7 +73,7 @@ class ManageChannelTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->get('/messages/channels/' . $channel->id)
+            ->get('/channels/' . $channel->id)
             ->assertStatus(401);
     }
 
@@ -83,7 +83,7 @@ class ManageChannelTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->post('/messages/channels', [
+            ->post('/channels', [
                 'channel-name' => 'Accounting',
                 'description' => 'Accounting channel',
                 'visibility' => true,
@@ -92,5 +92,45 @@ class ManageChannelTest extends TestCase
             ->assertRedirectToRoute('channel.show', [
                 'channel' => Channel::latest()->first()->id,
             ]);
+    }
+
+    /** @test */
+    public function a_user_can_edit_a_channel(): void
+    {
+        $user = User::factory()->create();
+        $channel = Channel::factory()->create([
+            'organization_id' => $user->organization_id,
+            'is_public' => false,
+        ]);
+        $user->channels()->attach($channel);
+
+        $this->actingAs($user)
+            ->put('/channels/' . $channel->id, [
+                'channel-name' => 'Accounting',
+                'description' => 'Accounting channel',
+                'visibility' => true,
+            ])
+            ->assertStatus(302)
+            ->assertRedirectToRoute('channel.edit', [
+                'channel' => $channel->id,
+            ]);
+    }
+
+    /** @test */
+    public function a_user_can_delete_a_channel(): void
+    {
+        $user = User::factory()->create();
+        $channel = Channel::factory()->create([
+            'organization_id' => $user->organization_id,
+        ]);
+        $user->channels()->attach($channel);
+
+        $this->actingAs($user)
+            ->delete('/channels/' . $channel->id)
+            ->assertStatus(200);
+
+        $this->assertDatabaseMissing('channels', [
+            'id' => $channel->id,
+        ]);
     }
 }

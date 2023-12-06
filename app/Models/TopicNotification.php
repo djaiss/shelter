@@ -10,13 +10,13 @@ class TopicNotification extends Model
 {
     use HasFactory;
 
-    protected $table = 'topic_notifications';
-
     public const STRATEGY_CHANNEL = 'channel';
 
     public const STRATEGY_USERS = 'users';
 
     public const STRATEGY_NONE = 'none';
+
+    protected $table = 'topic_notifications';
 
     protected $fillable = [
         'user_id',
