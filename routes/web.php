@@ -73,6 +73,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
         Route::middleware(['part-of-channel'])->group(function (): void {
             Route::get('channels/{channel}/edit', [ChannelController::class, 'edit'])->name('channel.edit');
+            Route::get('channels/{channel}/edit/users', [ChannelUserController::class, 'edit'])->name('channel.user.edit');
             Route::put('channels/{channel}', [ChannelController::class, 'update'])->name('channel.update');
             Route::get('channels/{channel}/delete', [ChannelController::class, 'delete'])->name('channel.delete');
             Route::delete('channels/{channel}', [ChannelController::class, 'destroy'])->name('channel.destroy');

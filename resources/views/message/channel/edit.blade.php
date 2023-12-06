@@ -17,23 +17,11 @@
 
         <!-- left -->
         <div>
-
-          <ul class="border-b pb-2 mb-4">
-            <li class="flex items-center hover:bg-blue-50 dark:hover:bg-gray-600 hover:border-l-blue-300 hover:border-l-2 border border-l-2 border-transparent px-2 py-1 rounded-sm">
-              <x-heroicon-o-cog class="w-4 h-4 text-gray-500 mr-2" />
-              <span>{{ __('General') }}</span>
-            </li>
-            <li class="flex items-center hover:bg-blue-50 dark:hover:bg-gray-600 hover:border-l-blue-300 hover:border-l-2 border border-l-2 border-transparent px-2 py-1 rounded-sm">
-              <x-heroicon-o-users class="w-4 h-4 text-gray-500 mr-2" />
-              <span>{{ __('Members') }}</span>
-            </li>
-          </ul>
-
+          @include('message.channel.partials.sidebar')
         </div>
 
         <!-- right -->
         <div class="p-0 sm:px-3 sm:py-0">
-
           <!-- channel general settings -->
           <form method="POST" action="{{ $data['url']['update'] }}" class="max-w-xl mb-6">
             @csrf

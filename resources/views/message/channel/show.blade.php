@@ -62,12 +62,19 @@
             </div>
           </div>
 
-          <!-- channel description -->
-          @if ($data['channel']['description'])
-          <div class="mb-6">
+          <!-- channel members & channel description -->
+          <div class="mb-6 flex">
+
+            <div class="flex -space-x-4 rtl:space-x-reverse">
+              @foreach ($data['channel']['users'] as $user)
+              <x-avatar :data="$user['avatar']" class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" />
+              @endforeach
+            </div>
+
+            @if ($data['channel']['description'])
             <p class="text-gray-500 dark:text-gray-400">{{ $data['channel']['description'] }}</p>
+            @endif
           </div>
-          @endif
 
           <!-- list of topics -->
           @forelse ($data['channel']['topics'] as $topic)
