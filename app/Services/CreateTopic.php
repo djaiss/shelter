@@ -47,7 +47,7 @@ class CreateTopic extends BaseService
      * There are 3 types of notifications for a topic:
      * - all the users in the channel (except the current user)
      * - specific users (who should not be in the channel)
-     * - no one specifically
+     * - no one specifically.
      *
      * @return void
      */
