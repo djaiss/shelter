@@ -31,7 +31,14 @@
       @endif
     </li>
     @empty
-    no channels
+    <div class="flex flex-col items-center justify-center p-6">
+      <div class="rounded-full bg-green-50 border border-green-500 dark:bg-gray-800 dark:border-gray-400 p-2 mb-3">
+        <x-heroicon-o-briefcase class="w-4 h-4 text-green-500 dark:text-gray-400" />
+      </div>
+      <p class="">
+        {{ __('Create your first channel to get started.') }}
+      </p>
+    </div>
     @endforelse
   </ul>
 </div>
