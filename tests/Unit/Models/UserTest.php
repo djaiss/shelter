@@ -6,6 +6,7 @@ use App\Models\Channel;
 use App\Models\Organization;
 use App\Models\Team;
 use App\Models\Topic;
+use App\Models\TopicNotification;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -55,6 +56,17 @@ class UserTest extends TestCase
         $channel->users()->attach($user->id);
 
         $this->assertTrue($user->channels()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_topic_notifications(): void
+    {
+        $user = User::factory()->create();
+        TopicNotification::factory()->create([
+            'user_id' => $user->id,
+        ]);
+
+        $this->assertTrue($user->topicNotifications()->exists());
     }
 
     /** @test */

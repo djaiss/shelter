@@ -11,7 +11,7 @@ class ChannelViewModel
 {
     public static function show(Channel $channel): array
     {
-        $topics = Cache::remember('channel-' . $channel->id . '-user-' . auth()->user()->id, 3600, function () use ($channel) {
+        $topics = Cache::remember('user:' . auth()->user()->id . ':channel:' . $channel->id . ':topics', 604800, function () use ($channel) {
             return $channel->topics()
                 ->with('user')
                 ->orderBy('created_at', 'desc')
@@ -42,6 +42,30 @@ class ChannelViewModel
             'topics' => $topics,
             'url' => [
                 'new' => route('topic.new', [
+                    'channel' => $channel->id,
+                ]),
+                'edit' => route('channel.edit', [
+                    'channel' => $channel->id,
+                ]),
+            ],
+        ];
+    }
+
+    public static function edit(Channel $channel): array
+    {
+        return [
+            'id' => $channel->id,
+            'name' => $channel->name,
+            'description' => $channel->description,
+            'is_public' => $channel->is_public,
+            'url' => [
+                'show' => route('channel.show', [
+                    'channel' => $channel->id,
+                ]),
+                'update' => route('channel.update', [
+                    'channel' => $channel->id,
+                ]),
+                'destroy' => route('channel.destroy', [
                     'channel' => $channel->id,
                 ]),
             ],

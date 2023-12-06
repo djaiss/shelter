@@ -60,7 +60,7 @@ class TeamMemberController extends Controller
             user: $potentialMember,
         ))->execute();
 
-        Cache::forget('team-users-' . $team->id);
+        Cache::forget('team:' . $team->id . ':users');
 
         return FacadesView::renderFragment('team.show', 'user-list', [
             'data' => TeamViewModel::show($team, true),
@@ -80,7 +80,7 @@ class TeamMemberController extends Controller
             user: $member,
         ))->execute();
 
-        Cache::forget('team-users-' . $team->id);
+        Cache::forget('team:' . $team->id . ':users');
 
         return response()->make('', 200, ['HX-Trigger' => 'loadMembers']);
     }

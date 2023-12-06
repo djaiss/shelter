@@ -66,16 +66,24 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('messages', [MessageController::class, 'index'])->name('message.index');
     Route::get('messages/unread', [MessageController::class, 'index'])->name('message.unread.index');
     Route::get('messages/favorites', [MessageController::class, 'index'])->name('message.favorites.index');
-    Route::get('messages/channels/new', [ChannelController::class, 'new'])->name('channel.new');
-    Route::post('messages/channels', [ChannelController::class, 'store'])->name('channel.store');
+    Route::get('channels/new', [ChannelController::class, 'new'])->name('channel.new');
+    Route::post('channels', [ChannelController::class, 'store'])->name('channel.store');
     Route::middleware(['channel'])->group(function (): void {
-        Route::get('messages/channels/{channel}', [ChannelController::class, 'show'])->name('channel.show');
-        Route::get('messages/channels/{channel}/topics/new', [TopicController::class, 'new'])->name('topic.new');
-        Route::post('messages/channels/{channel}/topics', [TopicController::class, 'store'])->name('topic.store');
+        Route::get('channels/{channel}', [ChannelController::class, 'show'])->name('channel.show');
+
+        Route::middleware(['part-of-channel'])->group(function (): void {
+            Route::get('channels/{channel}/edit', [ChannelController::class, 'edit'])->name('channel.edit');
+            Route::put('channels/{channel}', [ChannelController::class, 'update'])->name('channel.update');
+            Route::get('channels/{channel}/delete', [ChannelController::class, 'delete'])->name('channel.delete');
+            Route::delete('channels/{channel}', [ChannelController::class, 'destroy'])->name('channel.destroy');
+
+            Route::get('channels/{channel}/topics/new', [TopicController::class, 'new'])->name('topic.new');
+            Route::post('channels/{channel}/topics', [TopicController::class, 'store'])->name('topic.store');
+        });
 
         // topics
         Route::middleware(['topic'])->group(function (): void {
-            Route::get('messages/channels/{channel}/topics/{topic}', [TopicController::class, 'show'])->name('topic.show');
+            Route::get('channels/{channel}/topics/{topic}', [TopicController::class, 'show'])->name('topic.show');
         });
     });
 

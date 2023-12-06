@@ -17,9 +17,16 @@ class CheckChannel
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (is_string($request->route()->parameter('channel'))) {
+            $id = (int) $request->route()->parameter('channel');
+        } else {
+            $id = $request->route()->parameter('channel')->id;
+        }
+
         try {
             $channel = Channel::where('organization_id', auth()->user()->organization_id)
-                ->findOrFail($request->route()->parameter('channel'));
+                ->with('users')
+                ->findOrFail($id);
 
             $isPartOfChannel = $channel->users->contains(auth()->user()->id);
 
@@ -28,6 +35,7 @@ class CheckChannel
             }
 
             $request->attributes->add(['channel' => $channel]);
+            $request->attributes->add(['isPartOfChannel' => $isPartOfChannel]);
 
             return $next($request);
         } catch (ModelNotFoundException) {

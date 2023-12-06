@@ -4,6 +4,7 @@ namespace Tests\Unit\Models;
 
 use App\Models\Channel;
 use App\Models\Topic;
+use App\Models\TopicNotification;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -33,5 +34,16 @@ class TopicTest extends TestCase
             'channel_id' => $channel->id,
         ]);
         $this->assertTrue($topic->channel()->exists());
+    }
+
+    /** @test */
+    public function it_has_many_topic_notifications(): void
+    {
+        $topic = Topic::factory()->create();
+        TopicNotification::factory()->create([
+            'topic_id' => $topic->id,
+        ]);
+
+        $this->assertTrue($topic->topicNotifications()->exists());
     }
 }
