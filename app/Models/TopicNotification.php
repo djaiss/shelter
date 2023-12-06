@@ -12,9 +12,20 @@ class TopicNotification extends Model
 
     protected $table = 'topic_notifications';
 
+    public const STRATEGY_CHANNEL = 'channel';
+
+    public const STRATEGY_USERS = 'users';
+
+    public const STRATEGY_NONE = 'none';
+
     protected $fillable = [
         'user_id',
         'topic_id',
+        'read',
+    ];
+
+    protected $casts = [
+        'read' => 'boolean',
     ];
 
     public function user(): BelongsTo

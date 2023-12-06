@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Channel;
 use App\Models\Topic;
+use Illuminate\Support\Facades\DB;
 
 class CreateTopic extends BaseService
 {
@@ -13,6 +14,7 @@ class CreateTopic extends BaseService
         public Channel $channel,
         public string $title,
         public ?string $content,
+        public array $usersToNotify = [],
     ) {
     }
 
@@ -20,6 +22,7 @@ class CreateTopic extends BaseService
     {
         $this->create();
         $this->incrementTopicsCount();
+        $this->notifyUsers();
 
         return $this->topic;
     }
@@ -38,5 +41,27 @@ class CreateTopic extends BaseService
     private function incrementTopicsCount(): void
     {
         $this->channel->increment('topics_count');
+    }
+
+    /**
+     * There are 3 types of notifications for a topic:
+     * - all the users in the channel (except the current user)
+     * - specific users (who should not be in the channel)
+     * - no one specifically
+     *
+     * @return void
+     */
+    private function notifyUsers(): void
+    {
+        if (empty($this->usersToNotify)) {
+            return;
+        }
+
+        foreach ($this->usersToNotify as $user) {
+            DB::table('topic_notifications')->insert([
+                'user_id' => $user->id,
+                'topic_id' => $this->topic->id,
+            ]);
+        }
     }
 }
