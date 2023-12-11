@@ -39,7 +39,7 @@ class ChannelViewModel
                 ]);
         });
 
-        // there is no need to cache the query since the channel object comes from
+        // there is no need to cache the next query since the channel object comes from
         // the request, and the users relationship has already been added to
         // the request object. see CheckChannel.php.
         $users = $channel->users
