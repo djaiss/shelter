@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Cache;
 
 class CacheHelper
 {
-    public static function get(string $key, array $params, int $ttl, $callback): mixed
+    public static function get(string $key, array $params, int $ttl, callable $callback): mixed
     {
         // take each params and build the key
         // the key is something like team:{team-id}:users
