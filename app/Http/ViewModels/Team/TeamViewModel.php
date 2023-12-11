@@ -2,8 +2,8 @@
 
 namespace App\Http\ViewModels\Team;
 
+use App\Helpers\CacheHelper;
 use App\Models\Team;
-use Illuminate\Support\Facades\Cache;
 
 class TeamViewModel
 {
@@ -34,9 +34,11 @@ class TeamViewModel
 
     public static function show(Team $team, bool $isPartOfTeam): array
     {
-        $users = Cache::remember('team:' . $team->id . ':users', 604800, function () use ($team) {
-            return TeamMemberViewModel::index($team);
-        });
+        $users = CacheHelper::get('team:{team-id}:users', [
+            'team-id' => $team->id,
+        ], 604800, function () use ($team) {
+                return TeamMemberViewModel::index($team);
+            });
 
         return [
             'team' => [
