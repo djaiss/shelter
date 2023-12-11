@@ -18,7 +18,10 @@ class ChannelViewModelTest extends TestCase
     public function it_gets_the_data_needed_for_displaying_the_channel(): void
     {
         Carbon::setTestNow(Carbon::create(2018, 1, 1));
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+        ]);
         $channel = Channel::factory()->create([
             'organization_id' => $user->organization_id,
             'name' => 'Accounting',
@@ -76,6 +79,19 @@ class ChannelViewModelTest extends TestCase
                 ],
             ],
             $array['topics']->toArray()
+        );
+        $this->assertEquals(
+            [
+                0 => [
+                    'id' => $user->id,
+                    'name' => 'John Doe',
+                    'avatar' => $user->avatar,
+                    'url' => [
+                        'show' => env('APP_URL') . '/users/' . $user->id,
+                    ],
+                ],
+            ],
+            $array['users']->toArray()
         );
     }
 

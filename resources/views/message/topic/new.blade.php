@@ -21,49 +21,52 @@
             <h1 class="text-lg font-bold">{{ __('Create a topic') }}</h1>
           </div>
 
-          <div class="flex">
-            <div class="mr-2 top-5 relative">
-              <x-avatar :data="$data['user']['avatar']" class="w-8" />
-            </div>
-
-            <div class="w-full">
-              <!-- name -->
-              <div class="relative py-4">
-                <x-input-label for="title"
-                              :value="__('What is the name of the topic?')" />
-
-                <x-text-input class="mt-1 block w-full"
-                              id="title"
-                              name="title"
-                              type="text"
-                              required
-                              autofocus />
-
-                <x-input-error class="mt-2" :messages="$errors->get('title')" />
+          <div>
+            <div class="flex">
+              <div class="mr-2 top-5 relative">
+                <x-avatar :data="$data['user']['avatar']" class="w-8" />
               </div>
 
-              <!-- content -->
-              <div class="relative pt-2 pb-4">
-                <x-input-label for="content"
-                              :optional="true"
-                              :value="__('Description')" />
+              <div class="w-full">
+                <!-- name -->
+                <div class="relative py-4">
+                  <x-input-label for="title"
+                                :value="__('What is the name of the topic?')" />
 
-                <x-textarea id="content"
-                          name="content"
-                          :height="'min-h-[300px]'"
-                          class="mt-2 block w-full"
-                          type="text">{{ old('content') }}</x-textarea>
+                  <x-text-input class="mt-1 block w-full"
+                                id="title"
+                                name="title"
+                                type="text"
+                                required
+                                autofocus />
 
-                <x-input-error class="mt-2" :messages="$errors->get('content')" />
+                  <x-input-error class="mt-2" :messages="$errors->get('title')" />
+                </div>
+
+                <!-- content -->
+                <div class="relative pt-2 pb-4">
+                  <x-input-label for="content"
+                                :value="__('Description')" />
+
+                  <x-textarea id="content"
+                            name="content"
+                            required
+                            :height="'min-h-[300px]'"
+                            class="mt-2 block w-full"
+                            type="text">{{ old('content') }}</x-textarea>
+
+                  <x-input-error class="mt-2" :messages="$errors->get('content')" />
+                </div>
               </div>
             </div>
 
-            <!-- summary -->
-            <div class="w-full">
-              The topic will be posted in
+            <!-- who to notify -->
+            <div class="w-full border-t dark:border-gray-600 py-4">
+              <h2 class="flex items-center font-bold"><x-heroicon-o-bell-alert class="h-4 w-4 mr-2" /> Notifications</h2>
+              <p class="text-sm">Regardless of the option you chose, channel members will still see the Unread indicator on the list of topics.</p>
+
             </div>
           </div>
-
 
           <!-- actions -->
           <div class="flex items-center justify-between border-t dark:border-gray-600 py-4">

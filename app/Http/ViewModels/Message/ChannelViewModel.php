@@ -5,6 +5,8 @@ namespace App\Http\ViewModels\Message;
 use App\Helpers\CacheHelper;
 use App\Models\Channel;
 use App\Models\Topic;
+use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class ChannelViewModel
@@ -37,12 +39,29 @@ class ChannelViewModel
                 ]);
         });
 
+        // there is no need to cache the next query since the channel object comes from
+        // the request, and the users relationship has already been added to
+        // the request object. see CheckChannel.php.
+        $users = $channel->users
+            ->take(10)
+            ->map(fn (User $user) => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'avatar' => $user->avatar,
+                'url' => [
+                    'show' => route('user.show', [
+                        'user' => $user->id,
+                    ]),
+                ],
+            ]);
+
         return [
             'id' => $channel->id,
             'name' => $channel->name,
             'description' => $channel->description,
             'is_public' => $channel->is_public,
             'topics' => $topics,
+            'users' => $users,
             'url' => [
                 'new' => route('topic.new', [
                     'channel' => $channel->id,
