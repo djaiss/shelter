@@ -37,8 +37,8 @@ class TeamViewModel
         $users = CacheHelper::get('team:{team-id}:users', [
             'team-id' => $team->id,
         ], 604800, function () use ($team) {
-                return TeamMemberViewModel::index($team);
-            });
+            return TeamMemberViewModel::index($team);
+        });
 
         return [
             'team' => [
