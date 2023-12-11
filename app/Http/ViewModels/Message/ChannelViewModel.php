@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewModels\Message;
 
+use App\Helpers\CacheHelper;
 use App\Models\Channel;
 use App\Models\Topic;
 use App\Models\User;
@@ -12,7 +13,10 @@ class ChannelViewModel
 {
     public static function show(Channel $channel): array
     {
-        $topics = Cache::remember('user:' . auth()->user()->id . ':channel:' . $channel->id . ':topics', 604800, function () use ($channel) {
+        $topics = CacheHelper::get('user:{user-id}:channel:{channel-id}:topics', [
+            'user-id' => auth()->user()->id,
+            'channel-id' => $channel->id,
+        ], 604800, function () use ($channel) {
             return $channel->topics()
                 ->with('user')
                 ->orderBy('created_at', 'desc')
