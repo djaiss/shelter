@@ -5,7 +5,6 @@ namespace App\Http\ViewModels\Message;
 use App\Helpers\CacheHelper;
 use App\Models\Channel;
 use App\Models\User;
-use Illuminate\Support\Facades\Cache;
 
 class MessageLayoutViewModel
 {
