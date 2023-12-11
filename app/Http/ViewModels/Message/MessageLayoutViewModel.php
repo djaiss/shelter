@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewModels\Message;
 
+use App\Helpers\CacheHelper;
 use App\Models\Channel;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
@@ -14,7 +15,9 @@ class MessageLayoutViewModel
      */
     public static function index(): array
     {
-        $channels = Cache::remember('user:' . auth()->user()->id . ':channels', 604800, function () {
+        $channels = CacheHelper::get('user:{user-id}:channels', [
+            'user-id' => auth()->user()->id,
+        ], 604800, function () {
             return auth()->user()
                 ->channels()
                 ->select('channels.id', 'name', 'is_public')
