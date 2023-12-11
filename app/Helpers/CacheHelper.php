@@ -14,7 +14,6 @@ class CacheHelper
             $key = str_replace('{' . $param . '}', $value, $key);
         }
 
-        // @phpstan-ignore-line
         return Cache::remember($key, $ttl, $callback);
     }
 }

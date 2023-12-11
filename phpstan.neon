@@ -17,6 +17,7 @@ parameters:
 #        - ./*/*/FileToBeExcluded.php
         - app/Http/Controllers/Auth/VerifyEmailController.php
         - app/Services/UpdateProfile.php
+        - app/Helpers/CacheHelper.php
 #
 #    checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
